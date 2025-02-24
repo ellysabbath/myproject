@@ -1,0 +1,293 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}Amo-wanaume iyumbu{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text text-primary text text-center">jaza taarifa za awali</h5>
+        <form id="amo-form">
+            <div class="row">
+                <div class="col-lg-4">
+                    <label for="fname" class="text-center text-primary">Full Name</label>
+                    <input type="text" class="form-control text-center" name="fname" id="fname" required placeholder="Full Name">
+                </div>
+                <div class="col-lg-4">
+                    <label for="email" class="text-center text-primary">Email</label>
+                    <input type="email" class="form-control text-center" name="email" id="email" required placeholder="Email">
+                </div>
+                <div class="col-lg-4">
+                    <label for="mobileNumber" class="text-center text-primary">Mobile Number</label>
+                    <input type="number" class="form-control text-center" name="mobileNumber" id="mobileNumber" required placeholder="Mobile Number">
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-lg-4">
+                    <label for="username" class="text-center text-primary">Username</label>
+                    <input type="text" name="username" id="username" class="form-control text-center" required placeholder="Username">
+                </div>
+                <div class="col-lg-4">
+                    <label for="date-join" class="text-center text-primary">Date Join</label>
+                    <input type="date" name="date-join" id="date-join" class="form-control text-center" required placeholder="Date Join">
+                </div>
+                <div class="col-lg-4">
+                    <label for="date-leave" class="text-center text-primary">Date Leave</label>
+                    <input type="date" name="date-leave" id="date-leave" class="form-control text-center"  placeholder="Date Leave">
+                </div>
+            </div><br><br>
+        
+            <center>
+                <input type="submit" class="btn btn-primary btn-center" value="Submit" id="submit">
+            </center>
+        </form>
+        
+        <!-- CSRF Token -->
+        <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+        
+        <!-- Include SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script>
+            // This function is called when the form is submitted
+            document.getElementById('amo-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+        
+                // Collect the form data
+                const formData = new FormData(document.getElementById('amo-form'));
+                const data = {
+                    fullname: formData.get('fname'),
+                    email: formData.get('email'),
+                    mobile_number: formData.get('mobileNumber'),
+                    username: formData.get('username'),
+                    date_join: formData.get('date-join'),
+                    date_leave: formData.get('date-leave')
+                };
+        
+                // Get the CSRF token from the hidden input
+                const csrfToken = document.getElementById('csrf_token').value;
+        
+                // Send the data to the backend API
+                fetch('/accounts/api/submit-amo-form/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken // Add the CSRF token here
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 201) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Form Submitted Successfully!',
+                            text: 'Your data has been saved.',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Form Submitted Successfully!',
+                            text: 'Your data has been saved.',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'success',
+                            title: 'Form Submitted Successfully!',
+                            text: 'Your data has been saved.',
+                            confirmButtonText: 'OK'
+                    });
+                    console.error('Error:', error);
+                });
+            });
+        </script>
+        
+        
+</div>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center text-primary">Mipangokazi Form</h5>
+        
+        <!-- CSRF Token -->
+        <form id="wazeeFormMpangokazi" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="mpangokazi" class="text-center text-primary">Mpangokazi</label>
+                    <input type="text" class="form-control text-center" placeholder="Mpangokazi..." id="mpangokazi" name="mpangokazi" required>
+                </div>
+                <div class="col-lg-6">
+                    <label for="tarehe-ya-kupanga" class="text-center text-primary">Tarehe ya Kupanga</label>
+                    <input type="date" class="text-center form-control" name="tarehe-ya-kupanga" id="tarehe-ya-kupanga" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="wahusika" class="text-center text-primary">Wahusika</label>
+                    <input type="text" name="wahusika" id="wahusika" class="form-control" required>
+                </div>
+                <div class="col-lg-6">
+                    <label for="gharama" class="text-center text-primary">Gharama</label>
+                    <input type="number" class="form-control" id="gharama" name="gharama" required>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <label for="namna" class="text-center">Namna</label>
+                <textarea name="namna" id="namna" class="form-control text-center" required></textarea>
+            </div>
+            <div class="text-center mt-3">
+                <input type="submit" class="btn btn-primary btn-center" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Include SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+// Function to handle form submission
+document.getElementById('wazeeFormMpangokazi').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Collect form data
+    const formData = new FormData(this);
+    const data = {
+        mpangokazi: formData.get('mpangokazi'),
+        tarehe_ya_kupanga: formData.get('tarehe-ya-kupanga'),
+        wahusika: formData.get('wahusika'),
+        gharama: formData.get('gharama'),
+        namna: formData.get('namna'),
+    };
+
+    // Get CSRF token from the form
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Send the data to the backend API
+    fetch('/accounts/api/amo/mipangokazi/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,  // Add CSRF token here
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Display success message using SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted Successfully!',
+            text: 'Your data has been saved.',
+            confirmButtonText: 'OK',
+        });
+    })
+    .catch((error) => {
+        // Handle any errors and display the error message
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an issue submitting the form.',
+            confirmButtonText: 'OK',
+        });
+    });
+});
+</script>
+
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="text-center text-primary card-title">Taarifa Form</h5>
+        <form id="amoTaarifaForm">
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="mpangokazi-done" class="text-primary">Mpangokazi</label>
+                    <input type="text" name="mpangokazi-done" id="mpangokazi-done" class="form-control text-center" required>
+                </div>
+                <div class="col-lg-6">
+                    <label for="ufanisi" class="text-primary">Ufanisi</label>
+                    <select name="ufanisi" id="ufanisi" class="form-control text-center" required>
+                        <option value="" disabled selected>Select Ufanisi</option>
+                        <option value="ulitekelezwa">Utekelezwa</option>
+                        <option value="haukutekelezwa">Haukutekelezwa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <label for="cost" class="text-primary">Cost</label>
+                    <input type="number" class="form-control text-center" name="cost" id="cost" required>
+                </div>
+                <div class="col-lg-6">
+                    <label for="sababu" class="text-primary">Sababu za Kufanikiwa au La</label>
+                    <textarea name="sababu" id="sababu" class="form-control" required></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <label for="ushauri" class="text-primary">Ushauri/Mapendekezo</label>
+                    <textarea name="ushauri" id="ushauri" class="form-control text-center" required></textarea>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('amoTaarifaForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const data = {
+        mpangokazi_done: formData.get('mpangokazi-done'),
+        ufanisi: formData.get('ufanisi'),
+        cost: formData.get('cost'),
+        sababu: formData.get('sababu'),
+        ushauri: formData.get('ushauri'),
+    };
+
+    // Get CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Send data to the API
+    fetch('/accounts/api/amo/taarifa/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,  // CSRF token
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted Successfully!',
+            text: 'Your data has been saved.',
+            confirmButtonText: 'OK',
+        });
+    })
+    .catch((error) => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an issue submitting the form.',
+            confirmButtonText: 'OK',
+        });
+    });
+});
+</script>
+{% endblock %}

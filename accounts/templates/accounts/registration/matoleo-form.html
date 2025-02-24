@@ -1,0 +1,341 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}contrbutions at iyumbu sda church{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Taarifa za matoleo</h5>
+
+                    <!-- Default Accordion -->
+                    <div class="accordion" id="accordionExample">
+                        
+                        <!-- Zaka Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    zaka
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="zakaTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="zakaTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sadaka Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    sadaka
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="sadakaTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sadakaTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shukrani Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    shukrani
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="shukraniTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="shukraniTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Makambi Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    makambi
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="makambiTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="makambiTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sadaka ya 13 Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    sadaka ya 13
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="roboTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="roboTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Huduma Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    huduma
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="hudumaTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="hudumaTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Majengo Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                    majengo
+                                </button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="majengoTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="majengoTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lambi Lambi Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    lambi lambi
+                                </button>
+                            </h2>
+                            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="lambiTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>date</th>
+                                                <th>amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="lambiTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Msamalia Section -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingNine">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                    msamalia
+                                </button>
+                            </h2>
+                            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div style="max-height: 400px; overflow-y: auto;"> 
+                                    <table class="table table-bordered" id="msamaliaTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>date</th>
+                                                <th>amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="msamaliaTableBody"></tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Accordion -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side (Similar Accordion) -->
+        <div class="col-lg-6">
+            <!-- Repeat similar sections for right-side, for different types -->
+            <!-- You can duplicate the sections from above for more accordion items if needed -->
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define the API endpoint to fetch tithe data
+            const apiEndpoint = '/accounts/api/tithes/info-/';  // Adjust this URL if needed
+        
+            // Function to fetch data from the API
+            function fetchTithesData() {
+                fetch(apiEndpoint, {
+                    method: 'GET',  // Use GET method to fetch data
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')  // Assuming token is saved in localStorage after login
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Log the data to check its structure (you can remove this once you confirm)
+                    console.log(data);
+        
+                    // Call function to populate each section
+                    populateTitheSection('zaka', data.zaka);
+                    populateTitheSection('sadaka', data.sadaka);
+                    populateTitheSection('shukrani', data.shukrani);
+                    populateTitheSection('makambi', data.makambi);
+                    populateTitheSection('robo', data.robo);
+                    populateTitheSection('huduma', data.huduma);
+                    populateTitheSection('majengo', data.majengo);
+                    populateTitheSection('lambi', data.lambi);
+                    populateTitheSection('msamalia', data.msamalia);
+                })
+                .catch(error => {
+                    console.error('Error fetching tithe data:', error);
+                });
+            }
+        
+            // Function to populate a specific tithe section
+            function populateTitheSection(section, titheData) {
+                const tableBody = document.getElementById(section + 'TableBody');
+                if (!tableBody) return;  // If the table body is not found, do nothing
+        
+                // Clear any existing rows in the table
+                tableBody.innerHTML = '';
+        
+                // Check if there is any tithe data for this section
+                if (titheData && titheData.length > 0) {
+                    // Iterate through the tithe data and create rows
+                    titheData.forEach(tithe => {
+                        const row = document.createElement('tr');
+        
+                        // Create the columns for each tithe
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = tithe.full_name;  // Assuming 'full_name' is the field in response
+        
+                        const amountCell = document.createElement('td');
+                        amountCell.textContent = tithe.amount;  // Assuming 'amount' is the field in response
+        
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = new Date(tithe.date).toLocaleDateString();  // Assuming 'date' is the field
+        
+                        // Append cells to the row
+                        row.appendChild(nameCell);
+                        row.appendChild(dateCell);
+                        row.appendChild(amountCell);
+        
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    // If no data, show a message in the table body
+                    const row = document.createElement('tr');
+                    const emptyCell = document.createElement('td');
+                    emptyCell.colSpan = 3;
+                    emptyCell.textContent = 'No data available for this section';
+                    row.appendChild(emptyCell);
+                    tableBody.appendChild(row);
+                }
+            }
+        
+            // Call the fetch function to load the data when the page is ready
+            fetchTithesData();
+        });
+        </script>
+        
+</section>
+
+{% endblock %}

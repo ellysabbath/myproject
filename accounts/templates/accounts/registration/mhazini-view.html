@@ -1,0 +1,416 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}cashier/ view info/ iyumbu sda church{% endblock %}
+<style>
+    /* Style the card to ensure it looks clean */
+.card {
+    max-width: 100%; /* Makes sure card does not stretch beyond its container */
+    margin: 10px;
+    border-radius: 8px;
+}
+
+/* Optional: Style for the card header */
+.card-body h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Make sure the table's content is scrollable if it exceeds the container */
+table#mhazini-table {
+    min-width: 600px; /* Ensure the table has a minimum width */
+}
+
+table#mhazini-table th, table#mhazini-table td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style table headers */
+table#mhazini-table thead {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+}
+
+/* Optional: Hover effect for rows */
+table#mhazini-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+</style>
+{% block content %}
+<section class="section">
+    <h5 class="text text-primary-emphasis text text-center">Tarifa ya mhazini</h5>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text text-primary-emphasis text-center">Mipangokazi ya Mhazini</h2>
+            <hr>
+            
+            <!-- Wrapping the table inside a container with overflow handling -->
+            <div style="overflow-x: auto; overflow-y: auto;">
+                <table id="mhazini-table" class="table table-bordered">
+                    <thead>
+                        <tr style="background: blue" class="text-white">
+                            <th>#</th>
+                            <th>mwezi</th>
+                            <th>mpangokazi</th>
+                            <th>wahusika</th>
+                            <th>gharama</th>
+                            <th>ufanikishaji</th>
+                            <!-- Add more columns as per your Mhazini model -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be injected here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+    
+        </div>
+    </div>
+    
+
+    
+
+<div class="card">
+<div class="card-body">
+    <h6 class="text-secondary text-center">Mapato kwa mshiriki mmoja mmoja</h6><hr><!-- comment --> 
+    <div style="max-height: 400px; overflow-y: auto;"> 
+    <table id="fedha-table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>tarehe</th>
+                <th>kiasi</th>
+                <th>uelekeo</th>
+                <th>jina la mhazini</th>
+                <th>Uthibitisho</th>
+            </tr>
+        </thead>
+        <tbody id="fedha-table-body">
+            <!-- Data will be injected here by JavaScript -->
+        </tbody>
+    </table>
+    </div>
+</div>
+</div>
+<script>
+    // Fetch data from the API and populate all the tables
+    window.onload = function() {
+        let totalBankDeposit = 0;
+        let totalBankWithdrawal = 0;
+        let totalCashDeposit = 0;
+        let totalCashWithdrawal = 0;
+
+        // Fetch data for Mipangokazi
+        fetch('/accounts/api/mipangokazi/')  
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#mhazini-table tbody');
+                tableBody.innerHTML = ''; // Clear existing rows before adding new data
+
+                // Iterate over the data and create rows for the table
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.date}</td>
+                        <td>${item.aim}</td>
+                        <td>${item.experts}</td>
+                        <td>${item.cost}</td>
+                        <td>${item.method}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching mipangokazi data:', error);
+            });
+
+        // Fetch data for Receipts
+        fetch('/accounts/api/receipts/')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#fedha-table-body');
+                tableBody.innerHTML = ''; // Clear existing rows before adding new data
+
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.dateindividual}</td>
+                        <td>${item.amount}</td>
+                        <td>${item.direction}</td>
+                        <td>${item.leaderName}</td>
+                        <td>${item.confirmationStatus}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching receipts data:', error);
+            });
+
+        // Fetch data for Bank Transactions
+        fetch('/accounts/api/banks-reconciliation/')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#transactionsTableBody');
+                tableBody.innerHTML = ''; // Clear existing rows before adding new data
+
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.dateOfBankTransaction}</td>
+                        <td>${item.bankDeposit}</td>
+                        <td>${item.bankWithdrawal}</td>
+                        <td>${item.reason}</td>
+                    `;
+                    tableBody.appendChild(row);
+
+                    // Summing up the total deposits and withdrawals for bank transactions
+                    totalBankDeposit += parseFloat(item.bankDeposit) || 0;
+                    totalBankWithdrawal += parseFloat(item.bankWithdrawal) || 0;
+                });
+
+                // Update the Bank Transaction summary
+                document.getElementById('bankDeposit').textContent = totalBankDeposit.toFixed(2);
+                document.getElementById('bankWithdrawal').textContent = totalBankWithdrawal.toFixed(2);
+                document.getElementById('bankdifference').textContent = (totalBankDeposit - totalBankWithdrawal).toFixed(2);
+                document.getElementById('totalBank').textContent = (totalBankDeposit + totalBankWithdrawal).toFixed(2);
+            })
+            .catch(error => {
+                console.error('Error fetching bank transactions data:', error);
+            });
+
+        // Fetch data for Cash Transactions (from the same API: /accounts/api/banks-reconciliation/)
+        fetch('/accounts/api/banks-reconciliation/')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#transactionsCashTableBody');
+                tableBody.innerHTML = ''; // Clear existing rows before adding new data
+
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.dateOfCashTransaction}</td>
+                        <td>${item.cashDeposit}</td>
+                        <td>${item.cashWithdrawals}</td>
+                        <td>${item.reason}</td>
+                    `;
+                    tableBody.appendChild(row);
+
+                    // Summing up the total deposits and withdrawals for cash transactions
+                    totalCashDeposit += parseFloat(item.cashDeposit) || 0;
+                    totalCashWithdrawal += parseFloat(item.cashWithdrawals) || 0;
+                });
+
+                // Update the Cash Transaction summary
+                document.getElementById('cashDeposit').textContent = totalCashDeposit.toFixed(2);
+                document.getElementById('cashWithdrawal').textContent = totalCashWithdrawal.toFixed(2);
+                document.getElementById('cashdifference').textContent = (totalCashDeposit - totalCashWithdrawal).toFixed(2);
+                document.getElementById('totalCash').textContent = (totalCashDeposit + totalCashWithdrawal).toFixed(2);
+            })
+            .catch(error => {
+                console.error('Error fetching cash transactions data:', error);
+            });
+
+        // Calculate and Display Overall Totals
+        const totalDeposit = totalBankDeposit + totalCashDeposit;
+        const totalWithdrawal = totalBankWithdrawal + totalCashWithdrawal;
+        const difference = totalDeposit - totalWithdrawal;
+        const totalTransactions = totalDeposit + totalWithdrawal;
+
+        // Display the overall summary
+        document.getElementById('TotalDeposit').textContent = totalDeposit.toFixed(2);
+        document.getElementById('TotalWithdrawal').textContent = totalWithdrawal.toFixed(2);
+        document.getElementById('Difference').textContent = difference.toFixed(2);
+        document.getElementById('total').textContent = totalTransactions.toFixed(2);
+    };
+</script>
+
+
+
+
+
+<!-- Bank and Cash Transactions Section -->
+<div class="row mb-3">
+    <div class="">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary text-center">Bank Transactions</h6><hr>
+                <!-- Bank Transactions Table -->
+                <div style="max-height: 400px; overflow-y: auto;"> 
+                    <table class="table table-bordered" id="transactionsTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>BANK DATE</th>
+                                <th>BANK DEPOSIT</th>
+                                <th>BANK WITHDRAWALS</th>
+                                <th>REASON/AIM</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <!-- Data will be populated here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+    
+    
+    
+    
+<!--============================================bank transaction summary===============        -->
+<div class="row mb-3">
+<div class="col-lg-12">
+    <!-- Card to hold the transaction summary -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="text-center text-primary mb-4">Bank Transaction Summary</h5>
+            
+            <div class="row">
+                <!-- Total Bank Deposit -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Total Bank Deposit</p>
+                        <h4 class="text-success font-weight-bold" id="bankDeposit"></h4>
+                    </div>
+                </div>
+
+                <!-- Total Bank Withdrawal -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Total Bank Withdrawal</p>
+                        <h4 class="text-danger font-weight-bold" id="bankWithdrawal"></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Difference between Bank Deposit and Withdrawal -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Difference</p>
+                        <h4 class="text-warning font-weight-bold" id="bankdifference"></h4>
+                    </div>
+                </div>
+
+                <!-- Total Bank Transaction -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Total Bank Transaction</p>
+                        <h4 class="text-primary font-weight-bold" id="totalBank"></h4>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+<!--===============================end bank transaction summary==================================-->
+    
+    
+    
+    
+</div>
+
+<div class="">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-secondary text-center">Cash Transactions</h6><hr>
+            <div style="max-height: 400px; overflow-y: auto;"> 
+                <table class="table table-bordered table-responsive" id="transactionsCashTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>CASH DATE</th>
+                            <th>CASH DEPOSIT</th>
+                            <th>CASH WITHDRAWALS</th>
+                            <th>REASON/AIM</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsCashTableBody">
+                        <!-- Data will be populated here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+    <!--    ===================for casha============-->
+
+<div class="row mb-3">
+<div class="col-lg-12">
+    <!-- Card to hold the transaction summary -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="text-center text-primary mb-4">Cash Transaction Summary</h5>
+            
+            <div class="row">
+                <!-- Total Bank Deposit -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Total Cash Deposit</p>
+                        <h4 class="text-success font-weight-bold" id="cashDeposit"></h4>
+                    </div>
+                </div>
+
+                <!-- Total Bank Withdrawal -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Total Cash Withdrawal</p>
+                        <h4 class="text-danger font-weight-bold" id="cashWithdrawal"></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Difference between Bank Deposit and Withdrawal -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Difference</p>
+                        <h4 class="text-warning font-weight-bold" id="cashdifference"></h4>
+                    </div>
+                </div>
+
+                <!-- Total Bank Transaction -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 border rounded text-center bg-light">
+                        <p class="text-muted">Total Cash Transaction</p>
+                        <h4 class="text-primary font-weight-bold" id="totalCash"></h4>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+<!--===================end for cash========================-->
+</div>
+</div><br><!-- comment -->
+
+<!--============================= over all================================-->
+
+</section>
+
+{% endblock %}

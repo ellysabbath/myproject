@@ -1,0 +1,285 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}mashemasi-idara ya mashemasi iyumbu sda curch{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Mashemasi</h5>
+      <div class="alert alert-info  alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Taarifa za awali za mashemasi</h4>
+        <form id="awaliform">
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label for="name"></label>
+                <input type="text" name="name" id="name" placeholder="jina kamili" class="form-control"><!-- comment -->
+            </div>
+            
+            <div class="col-lg-6">
+                <label for="date">terehe ya kupitishwa</label>
+                <input type="date" name="date" id="date" placeholder="terehe ya kupitishwa" class="form-control"><!-- comment -->
+            </div>
+        </div>
+            
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label for="dob">tarehe ya kuzaliwa</label>
+                <input type="date" name="dob" id="dob" placeholder="tarehe ya kuzaliwa" class="form-control"><!-- comment -->
+            </div>
+            
+            <div class="col-lg-6">
+            <label for="" class="form-label"></label>
+            <select name="maritalStatus" id="maritalStatus" class="form-control">
+                    <option selected disabled value="">marrital status.......</option>
+                    <option value="nimeolewa">olewa</option>
+                    <option value="nimeoa">oa</option>
+                    <option value="single">peke yangu</option>
+                    
+                </select>
+              </div>
+           </div>
+            <div class="">
+          <label class="form-label">Gender</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" required>
+                <label class="form-check-label" for="genderMale">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" required>
+                <label class="form-check-label" for="genderFemale">Female</label>
+            </div>  
+            </div><br><br>
+            <div class="">
+                <input type="submit" class="btn btn-primary form-control" value="wasilisha"></button>
+            </div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        </form>
+      </div>
+    </div></div>
+<!--              </div>-->
+<!-- =========================on  process of backend======================================================-->
+<!-- ===============================================================================--->
+   <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <div class="alert alert-info  alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">bajeti ya mashemasi</h4>
+        <form id="bajetForm">
+         <div class="row mb-3">
+          <div  class="col-lg-6">
+              <label for=""></label>
+              <input type="text" name="name" id="name" placeholder="jina la tukio" class="form-control" required>
+          </div>
+           <div  class="col-lg-6">
+              <label for="date" class="form-label">tarehe tukio lilipo fanyika</label>
+              <input type="date" name="date" id="date" placeholder="tarehe ya kufanya tukio" class="form-control" required>
+          </div>
+        </div>
+            
+       <div class="row mb-3">
+          <div  class="col-lg-6">
+              <label for="quality"></label>
+              <select name="ubora" id="ubora" required class="form-control">
+                  <option selected disabled value="">[chagua uora...]</option>
+                  <option value="vizuri sana">vizuri sana</option>
+                  <option value="wastani">wastani</option>
+                  <option value="bora">bora</option>
+                  <option value="vibaya">vibaya</option>
+              </select>
+
+          </div>
+           <div  class="col-lg-6">
+              <label for=""></label>
+              <input type="text" name="bajeti" id="bajeti" placeholder="bajeti yha mwaka" class="form-control" required>
+          </div>
+        </div>
+            <div class="row m-3"><!-- comment -->
+                <div class="col-lg-6"><!-- comment -->
+                    <label for=""></label>
+                    <input type="text" name="kiasi" id="kiasi" placeholder="kiasi kilicho tumika" required class="form-control">
+                </div>
+                <div class="col-lg-6"><!-- comment -->
+                    <label for=""></label>
+                    <input type="text" name="baki" id="baki" required class="form-control" placeholder="kiasi kilicho bakia...."><!-- comment -->
+                    </div>
+               </div>
+            <div><!-- comment -->
+                <input type="submit" value="wasilisha" class="btn btn-primary form-control"><!-- comment -->
+            </div>
+            
+              
+        </form>
+     </div>
+
+    </div>
+  </div>
+<!----====================================================================-->
+   <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+<div class="alert alert-info  alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Uthibitisho wa uongozi wa kanisa</h4>
+        <form id="thibitisha">
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label for="" class="form-label"></label>
+                <input type="text" name="cheo"  id="cheo" placeholder="nafasi/cheo" required class="form-control"><!-- comment -->
+            </div>
+            <div class="col-lg-6">
+                <label for="name" class="form-label"></label>
+                <input type="text" name="name" id="name" placeholder="jina la kiongozi" required class="form-control">
+            </div>
+          </div>
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <label for="date" class="form-label">tarehe ya uthibitisho</label>
+                    <input type="date" name="date" id="date" required class="form-control"> 
+                </div>
+                <div class="col-lg-6">
+                    <label for="option-selection" class="form-label"></label>
+                    <select name="optionSelection" id="option-selection" class="form-control">
+                        <option selected disabled value="">chagua...</option>
+                        <option value="imepitishwa">Imepitishwa</option>
+                        <option value="haijapitishwa">haijapitiswa</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="wasilisha" class="btn btn-primary  form-control">
+            </div>
+               
+        </form>
+    </div>
+    </div>
+   </div>
+<!--==============================================================================-->
+   <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+<div class="alert alert-info  alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">mipangokazi ya idara ya mashemasi</h4>
+        <form id="mipangokaziForm">
+            <div class="row mb-3">
+                
+               <div class="col-lg-6">
+                    <label for="date" class="form-label">Tarehe</label>
+                    <input type="date" class="form-control" name="dateOfAgreement" id="dateOfAgreement" required>
+                </div>
+                
+              <div class="col-lg-6">
+                    <label for="cost" class="form-label"></label>
+                    <input type="text" name="cost" id="cost" placeholder="gharama..." class="form-control">
+                </div>
+
+            </div>
+            <div class="row -mb-3">
+            <div class="col-lg-6">
+                    <label for="mpangokazi" class="form-label"></label>
+                    <textarea name="mpangokazi" class="form-control" type="text" placeholder="mpangokazi..." id="mpangokazi" required></textarea>
+                </div>
+              <div class="col-lg-6">
+                    <label for="utekelezwaji" class="form-label"></label>
+                    <textarea type="text" name="utekelezwaji" placeholder="namna ya utekelezwaji/kufanikisha..." id="utekelezwaji" class="form-control"></textarea>
+                </div>
+
+            </div><br><br>
+            <div>
+                <input type="submit" value="wasilisha" class="btn btn-primary  form-control">
+            </div>
+            
+
+            
+        </form>
+      </div>
+    </div>
+   </div>
+<!--==============================================================================-->
+    <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <div class="alert alert-info  alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">vifaa vya idara ya mashemasi</h4>
+        <form id="vifaaForm">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <label for="tarehe" class="form-label"></label>
+                    <input type="date" name="tarehe" id="tarehe" required class="form-control"><!-- comment -->
+                </div>
+                <div class="col-lg-6">
+                    <label for="name" class="form-label"></label>
+                    <input type="text" name="name" id="name" required class="form-control" placeholder="jina la kifaa/nyenzo..."><!-- comment -->
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <label for="idadi" class="form-label"></label>
+                    <input type="text" name="idadi" class="form-control" required id="idadi" placeholder="idadi ya vifaa/nyenzo..."><!-- comment -->
+                </div>
+                <div class="col-lg-6">
+                    <label for="vizima" class="form-label"></label>
+                    <input type="text" name="vizima" id="vizima" class="form-control" placeholder="vizima..."><!-- comment -->
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="ol-lg-6">
+                <label for="vibovu"></label>
+                <input type="text" name="vibovu" id="vibovu" placeholder="vyenye hitlafu kwa idadi..." class="form-control" required><!-- comment -->
+            </div>
+            </div>
+            <div>
+                <input type="submit" value="wasilisha" class="form-control btn btn-primary"><!-- comment -->
+            </div>
+            
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        </form>
+      </div>
+    </div>
+    </div>
+<!-- ================================================================================ 
+-->
+
+    <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <div class="alert alert-info  alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">mahitaji ya idara ya mashemasi</h4>
+        <form id="maitajiForm">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <label for="date" class="form-label"></label>
+                    <input type="date" name="date" id="date" required class="form-control"><!-- comment -->
+                </div>
+                <div class="col-lg-6">
+                    <label for="ainaYaHitaji"></label>
+                    <input type="text" name="ainaYaHitaji" id="ainaYaHitaji" class="form-control" placeholder="aina ya hitaji..."><!-- comment -->
+                </div>
+            </div>
+            <div class="">
+                <label for="gharama" class="form-label"></label>
+                <input type="text" name="gharama" id="gharama" class="form-control" placeholder="gharama..."><!-- comment -->
+                
+            </div>
+            <!-- comment -->
+            <div class="">
+                <label for="wajibu" class="form-label"></label>
+                <textarea type="text" name="wajibu" id="wajibu" class="form-control" placeholder="lengo la hitaji...."></textarea><!-- comment -->
+            </div><!-- comment --><br><!-- comment -->
+            <div class="">
+                <label for="namna" class="form-label"></label>
+                <textarea type="text" name="how" id="how" class="form-control" required placeholder="namna ya kaufanikiwa kwa ufupi...."></textarea><!-- comment -->
+            </div><br><!-- comment -->
+            <div class="">
+                <input type="submit" value="wasilisha" class="form-control btn btn-primary"><!-- comment -->
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        </form>
+      </div>
+    </div>
+    </div>
+
+{% endblock %}

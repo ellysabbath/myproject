@@ -1,0 +1,172 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}register-page-iyumbu sda church{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Register</h2>
+        <form id="registerForm" class="row g-3 needs-validation" novalidate>
+            {% csrf_token %}
+            <!-- Form fields go here -->
+            <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="validationCustom01" name="first_name" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustomMiddleName" class="form-label">Middle Name</label>
+                <input type="text" class="form-control" id="validationCustomMiddleName" name="middle_name" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom02" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="validationCustom02" name="last_name" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="validationEmail" name="email" placeholder="eg: someone@gmail.com" required>
+                <div class="invalid-feedback">Please provide a valid email.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationPhone" class="form-label">Mobile Number</label>
+                <input type="number" class="form-control" id="validationPhone" name="phone_number" placeholder="eg: +255..." required>
+                <div class="invalid-feedback">Please provide a valid mobile number.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustomUsername" class="form-label">Username</label>
+                <input type="text" class="form-control" id="validationCustomUsername" name="username" required>
+                <div class="invalid-feedback">Please choose a username.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationDOB" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="validationDOB" name="date_of_birth" required>
+                <div class="invalid-feedback">Please provide a valid date of birth.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="validationCity" name="city" required>
+                <div class="invalid-feedback">Please provide a valid city.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationChurch" class="form-label">Church</label>
+                <select class="form-select" id="validationChurch" name="church" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option value="iyumbu">Iyumbu</option>
+                    <option value="ngongona">Ngongona</option>
+                    <option value="msangalalee">Msangalalee</option>
+                </select>
+                <div class="invalid-feedback">Please select a valid church.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationBaptismStatus" class="form-label">Baptism Status</label>
+                <select class="form-select" id="validationBaptismStatus" name="baptism_status" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <div class="invalid-feedback">Please provide a valid status.</div>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Gender</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" required>
+                    <label class="form-check-label" for="genderMale">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" required>
+                    <label class="form-check-label" for="genderFemale">Female</label>
+                </div>
+                <div class="invalid-feedback">Please select a gender.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="validationPassword" name="password" required>
+                <div class="invalid-feedback">Please provide a password.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationConfirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="validationConfirmPassword" name="confirm_password" required>
+                <div class="invalid-feedback">Please confirm your password.</div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="invalidCheck" name="terms_agreement" required>
+                    <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
+                    <div class="invalid-feedback">You must agree before submitting.</div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary btn-block" type="submit">Submit Form</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Get form data
+        const formData = new FormData(this);
+        const data = {
+            first_name: formData.get('first_name'),
+            middle_name: formData.get('middle_name'),
+            last_name: formData.get('last_name'),
+            email: formData.get('email'),
+            phone_number: formData.get('phone_number'),
+            username: formData.get('username'),
+            date_of_birth: formData.get('date_of_birth'),
+            city: formData.get('city'),
+            church: formData.get('church'),
+            baptism_status: formData.get('baptism_status'),
+            gender: formData.get('gender'),
+            password: formData.get('password'),
+            confirm_password: formData.get('confirm_password'),
+            terms_agreement: formData.get('terms_agreement'),
+        };
+
+        // Get CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Send data to the API
+        fetch('/accounts/api/registrations/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,  // CSRF token
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success
+            Swal.fire({
+                icon: 'success',
+                title: 'Registration Successful!',
+                text: 'Your data has been saved.',
+                confirmButtonText: 'OK',
+            });
+
+            // Disable form after successful submission
+            document.getElementById('registerForm').reset();
+            document.querySelector("button[type='submit']").disabled = true;
+        })
+        .catch((error) => {
+            // Handle error
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was an issue submitting the form.',
+                confirmButtonText: 'OK',
+            });
+
+            // Re-enable the submit button
+            document.querySelector("button[type='submit']").disabled = false;
+        });
+    });
+</script>
+
+  {% endblock %}

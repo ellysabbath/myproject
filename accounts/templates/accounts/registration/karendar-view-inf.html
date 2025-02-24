@@ -1,0 +1,109 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}MATUKIO KATIKA, KANISA LA WAADIVENTISTA WA SABATO IYUMBU DODOMA{% endblock %}
+{% block content %}
+<section class="section">
+
+    <div class="">
+
+       <div class="card">
+         <div class="card-body">
+           <h5 class="card-title">Default Tabs Justified</h5>
+
+           <!-- Default Tabs -->
+           <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+             <div>
+     <table class="table table-bordered">
+         <thead>
+             <tr>
+                 <th>#</th>
+                 <th>Name</th>
+                 <th>Tarehe Tukio</th>
+                 <th>Lengo</th>
+                 <th>Gharama</th>
+                 <th>Wahusika</th>
+                 <th>Idadi</th>
+                 <th>Namna</th>
+             </tr>
+         </thead>
+         <tbody id="karendaTableBody">
+             <!-- Data will be inserted here -->
+         </tbody>
+     </table>
+ </div>
+
+
+             </div>
+          </div>
+       </div>
+     
+     
+     <div class="">
+ <h5 class="text text-primary-emphasis">Annual church report per ministry</h5>
+ <div class="card">
+     <div class="">
+         <label for="idara" class="text text-primary-emphasis"><center>Idara</center></label>
+         <select class="form-control" id="idara" required onchange="fetchAnnualsByIdara()">
+             <option selected disabled value="">Chagua Idara...</option>
+             <option value="ujenzi">Ujenzi</option>
+             <option value="huduma binafsi">Huduma Binafsi</option>
+             <option value="mashemasi">Mashemasi</option>
+             <option value="fedha">Fedha</option>
+             <option value="usikivu">Usikivu</option>
+             <option value="uwakili">Uwakili</option>
+             <option value="kaya na familia">Kaya na Familia</option>
+             <option value="Afya na kiasi">Afya na Kiasi</option>
+             <option value="mahitaji maalumu">Mahitaji Maalumu</option>
+             <option value="wana wa kike">Wana wa Kike</option>
+             <option value="uchapaji">Uchapaji</option>
+             <option value="roho ya unabii">Roho ya Unabii</option>
+             <option value="sauti ya unabii">Sauti ya Unabii</option>
+             <option value="muziki">Muziki</option>
+             <option value="dorkasi">Dorkasi</option>
+             <option value="amo">Amo</option>
+             <option value="atape">Atape</option>
+             <option value="watoto">Watoto</option>
+             <option value="makundi">Makundi...</option>
+             <option value="majengo">Majengo</option>
+             <option value="wazee">Ofisi ya Wazee</option>
+             <option value="shule ya sabato">Shule ya Sabato</option>
+             <option value="vijana">Vijana</option>
+             <option disabled>-- Kategoria Vijana --</option>
+             <option value="vijana SYL">Senior Youth Leader (SYL)</option>
+             <option value="vijana MG">Master Guide (MG)</option>
+             <option value="vijana mambalozi">Mabalozi</option>
+             <option value="vijana PFC">Path Finder Club (PFC)</option>
+             <option value="vijana AC">Adventurers Club (AC)</option>
+             <option value="vijana mpya">Vijana Mpya</option>
+         </select><br><br>
+     </div>
+     <div class="card-body">
+         <div style="max-height: 400px; overflow-y: auto;">
+             <table class="table table-responsive table table-bordered table-striped-c" id="annualsTable">
+                 <thead>
+                     <th>#</th>
+                     <th>tarehe ya kufanikisha</th>
+                     <th>mpangokazi</th>
+                     <th>mambo yaliyo fanikiwa</th>
+                     <th>mambo ambayo hayakufanikiwa</th>
+                     <th>sababu za kuto fanikiwa</th>
+                     <th>mapendekezo</th>
+                 </thead>
+                 <tbody>
+                     <!-- Dynamic rows will be inserted here -->
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </div>
+</div>
+
+
+     
+     
+     
+     </div>
+ </section>
+
+{% endblock %}

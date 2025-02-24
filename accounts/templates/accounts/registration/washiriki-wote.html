@@ -1,0 +1,92 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Washiriki-Iyumbu washiriki wote{% endblock %}
+<style>
+    .thead-sticky {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa; /* Background color for the sticky header */
+        z-index: 1;  /* Ensure it stays on top when scrolling */
+    }
+
+    .table-responsive {
+        overflow: auto; /* Allow scrolling */
+    }
+
+    /* Ensure table fits within small cards */
+    #registrationsTable {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    /* Styling for the card content */
+    .card-body {
+        padding: 15px;
+    }
+</style>
+
+{% block content %}
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Registrations</h2>
+                    <div class="table-responsive" style="max-height: 400px; overflow: auto;">
+                        <table class="table table-striped table-bordered" id="registrationsTable">
+                            <thead class="thead-sticky">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Username</th>
+                                    <th>City</th>
+                                    <th>Church</th>
+                                    <th>Baptism Status</th>
+                                    <th>Gender</th>
+                                </tr>
+                            </thead>
+                            <tbody id="registrationsData">
+                                <!-- Data will be inserted here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // Function to fetch and display the registration data
+                document.addEventListener("DOMContentLoaded", function() {
+                    fetch('/accounts/api/registrations/')
+                        .then(response => response.json())
+                        .then(data => {
+                            let tableBody = document.getElementById("registrationsData");
+                            tableBody.innerHTML = '';  // Clear existing content
+                            data.forEach(registration => {
+                                let row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${registration.id}</td>
+                                    <td>${registration.first_name}</td>
+                                    <td>${registration.middle_name || ''}</td>
+                                    <td>${registration.last_name}</td>
+                                    <td>${registration.email}</td>
+                                    <td>${registration.phone_number}</td>
+                                    <td>${registration.username}</td>
+                                    <td>${registration.city}</td>
+                                    <td>${registration.church}</td>
+                                    <td>${registration.baptism_status}</td>
+                                    <td>${registration.gender}</td>
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching registration data:', error);
+                        });
+                });
+            </script>
+            
+{% endblock %}

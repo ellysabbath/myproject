@@ -1,0 +1,1 @@
+This is project of python special for Iyumbu sda church, wellcome for platform creation

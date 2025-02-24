@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IYUMBU DODOMA/ IYUMBU SDA CHURCH DODOMA SIGN UP REQUESTS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?church,faith') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #0d6efd; /* Bootstrap Blue */
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-size: 1.2rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #198754 !important; /* Success Green on hover */
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(13, 110, 253, 0.7); /* Semi-transparent blue */
+            border-radius: 10px;
+            margin: 50px auto;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .btn-custom {
+            background-color: #198754; /* Success Green */
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #0d6efd; /* Blue on hover */
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sign Up Form */
+        .signup-form {
+            display: none;
+            text-align: center;
+            padding: 50px;
+            background: rgba(13, 110, 253, 0.9);
+            border-radius: 10px;
+            margin-top: 50px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .signup-form input {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .signup-form button {
+            background-color: #198754;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .signup-form button:hover {
+            background-color: #0d6efd; /* Blue on hover */
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 50px 20px;
+                margin-top: 30px;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+            .signup-form {
+                padding: 30px;
+            }
+
+            .navbar-brand {
+                font-size: 1rem;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-section p {
+                font-size: 0.9rem;
+            }
+
+            .btn-custom {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+            }
+
+            .signup-form input {
+                padding: 8px;
+            }
+
+            .signup-form button {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">IYUMBU SDA CHURCH</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" id="signupBtn">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="homepage">
+        <h1>Welcome to Our Church</h1>
+        <p>We are a family united by faith, hope, and love. Join us in celebrating the word of God and embracing the blessings He offers.</p>
+        <a href="{% url 'Logged_in' %}" class="btn btn-custom">PROCEED TO LOGIN</a>
+    </section>
+
+    <!-- Sign Up Form -->
+    <div class="signup-form" id="signupForm">
+        <h2>Sign Up</h2>
+        <form onsubmit="return signUpSubmit(event)">
+            <input type="text" id="fullname" placeholder="Your Name" required><br>
+            <input type="email" id="email" placeholder="Your Email" required><br>
+            <input type="text" id="username" placeholder="Choose Username" required><br>
+            <button type="submit">Sign Up</button>
+        </form>
+        
+        <!-- Include SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script>
+            // This function is called when the form is submitted
+            function signUpSubmit(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+        
+                // Get form values
+                const fullname = document.getElementById('fullname').value;
+                const email = document.getElementById('email').value;
+                const username = document.getElementById('username').value;
+        
+                // Create an object with the form data
+                const data = {
+                    fullname: fullname,
+                    email: email,
+                    username: username
+                };
+        
+                // Send the data to the API endpoint
+                fetch('http://127.0.0.1:8000/accounts/api/request/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Indicate that we're sending JSON
+                    },
+                    body: JSON.stringify(data) // Convert the data object to JSON
+                })
+                .then(response => response.json()) // Parse the response as JSON
+                .then(data => {
+                    // If the request was successful, show a SweetAlert success message
+                    if (response.status === 201) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Sign Up Successful!',
+                            text: 'Your request has been submitted successfully.',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    // If there was an error with the request, show SweetAlert error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'There was an error submitting the form.',
+                        confirmButtonText: 'OK'
+                    });
+                    console.error('Error:', error);
+                });
+            }
+        </script>
+        
+            
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Iyumbu SDA church. All Rights Reserved.</p>
+        <p><a href="mailto:contact@churchoffaith.com">iyumbusda@gmail.com</a></p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Handle Sign Up Button Click
+        document.getElementById('signupBtn').addEventListener('click', function () {
+            // Hide the homepage and show the signup form
+            document.getElementById('homepage').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+        });
+
+        // Handle Sign Up Form Submission
+        function signUpSubmit(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            // Here you can handle the form submission (e.g., AJAX, validation, etc.)
+
+            // After sign-up is complete, show the homepage again
+            document.getElementById('homepage').style.display = 'block';
+            document.getElementById('signupForm').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
+
+

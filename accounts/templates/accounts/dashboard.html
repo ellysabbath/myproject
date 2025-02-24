@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IYUMBU SDA CHURCH DODOMA/ IYUMBU SDA CHURCH USER DASHBOARD</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom Styles */
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #ffffff; /* White background for the content area */
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Profile Image */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Circular image */
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #fff; /* White border around the image */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        h2 {
+            color: #007bff; /* Blue color for the header */
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555555; /* Darker text color for the message */
+            margin-bottom: 30px;
+        }
+
+        .btn-danger {
+            background-color: #ff4d4d;
+            border-color: #ff4d4d;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background-color: #e60000;
+            border-color: #e60000;
+        }
+
+        .btn-primary {
+            background-color: #4caf50; /* Green color for the "Continue" button */
+            border-color: #4caf50;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #388e3c;
+            border-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Welcome Message -->
+        <h2>Welcome, {{ user.username }}!</h2>
+        
+        <!-- Profile Image -->
+        <img id="profile-img" class="profile-image" src="#" alt="Profile Image" />
+        
+        <!-- Logout and Continue Buttons -->
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        <a href="{% url 'continue' %}" class="btn btn-primary">Continue</a>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Get the token from localStorage
+        const token = localStorage.getItem('access_token');
+    
+        if (token) {
+            fetch('/accounts/api/userprofile/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,  // Send the token in the header
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Check if the image exists and update the profile image
+                const profileImgElement = document.getElementById('profile-img');
+                if (data.image) {
+                    profileImgElement.src = data.image;  // Set the image source to the URL returned from API
+                } else {
+                    profileImgElement.src = '/path/to/default/profile/image.jpg';  // Default image if no profile image
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user profile:', error);
+            });
+        } else {
+            console.log('No token found');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Amo-wanaume iyumbu{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mb-4">Amo-wanaume iyumbu</h4>
+            <div class="table-responsive" style="max-height: 400px; overflow-x: auto; overflow-y: auto;">
+                <table id="amo-table" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Mobile Number</th>
+                            <th>Username</th>
+                            <th>Date Join</th>
+                            <th>Date Leave</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data rows will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to fetch data from the backend and display it in the table
+    function fetchAmoForms() {
+        fetch('/accounts/api/get-all-amo/')  // API endpoint to get data
+            .then(response => response.json())  // Parse the JSON response
+            .then(data => {
+                const tableBody = document.getElementById('amo-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';  // Clear the existing table data
+
+                // Loop through the data and create table rows
+                data.forEach(item => {
+                    const row = tableBody.insertRow();
+
+                    row.insertCell(0).textContent = item.fullname;
+                    row.insertCell(1).textContent = item.email;
+                    row.insertCell(2).textContent = item.mobile_number;
+                    row.insertCell(3).textContent = item.username;
+                    row.insertCell(4).textContent = item.date_join;
+                    row.insertCell(5).textContent = item.date_leave;
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);  // Log error quietly in the console
+            });
+    }
+
+    // Fetch and display the data when the page loads
+    window.onload = fetchAmoForms;
+</script>
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class=" card-title">Amo Mipangokazi</h5>
+        <!-- Table for Amo Mipangokazi -->
+        <div class="">
+            <div class="table-responsive" style="max-height: 400px; overflow-x: auto; overflow-y: auto;">
+            <table id="mpangokaziTable" class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Mpangokazi</th>
+                        <th>Tarehe ya Kupanga</th>
+                        <th>Wahusika</th>
+                        <th>Gharama</th>
+                        <th>Namna</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Card for Amo Taarifa -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Amo Taarifa</h5>
+        <!-- Table for Amo Taarifa -->
+        <div class="">
+            <div class="table-responsive" style="max-height: 400px; overflow-x: auto; overflow-y: auto;">
+            <table id="taarifaTable" class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Mpangokazi Done</th>
+                        <th>Ufanisi</th>
+                        <th>Cost</th>
+                        <th>Sababu</th>
+                        <th>Ushauri</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// Function to fetch data for AmoMipangokazi
+function fetchAmoMipangokaziData() {
+    fetch('/accounts/api/amo/mipangokazi/')
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('mpangokaziTable').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = '';  // Clear the existing table data
+        
+        data.forEach(item => {
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = item.mpangokazi;
+            row.insertCell(1).textContent = item.tarehe_ya_kupanga;
+            row.insertCell(2).textContent = item.wahusika;
+            row.insertCell(3).textContent = item.gharama;
+            row.insertCell(4).textContent = item.namna;
+        });
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to fetch AmoMipangokazi data.',
+            confirmButtonText: 'OK'
+        });
+    });
+}
+
+// Function to fetch data for AmoTaarifa
+function fetchAmoTaarifaData() {
+    fetch('/accounts/api/amo/taarifa/')
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('taarifaTable').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = '';  // Clear the existing table data
+        
+        data.forEach(item => {
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = item.mpangokazi_done;
+            row.insertCell(1).textContent = item.ufanisi;
+            row.insertCell(2).textContent = item.cost;
+            row.insertCell(3).textContent = item.sababu;
+            row.insertCell(4).textContent = item.ushauri;
+        });
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to fetch AmoTaarifa data.',
+            confirmButtonText: 'OK'
+        });
+    });
+}
+
+// Fetch the data when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    fetchAmoMipangokaziData();
+    fetchAmoTaarifaData();
+});
+</script>
+{% endblock %}

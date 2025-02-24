@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IYUMBU SDA LOGIN/ IYUMBU SDA CHURCH DODOMA LOGIN PAGE</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .card {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #007bff;
+        }
+        .card .form {
+            margin-top: 20px;
+        }
+
+        .card .form .form-control {
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .card button {
+            width: 100px;
+            height: 50px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .card a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Custom danger message styling */
+        .alert-danger {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 class="my-4 text text-primary">Login</h2>
+
+        <!-- Display error message if form is invalid -->
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                Invalid credentials. Please try again.
+            </div>
+        {% endif %}
+
+        <form id="loginForm" method="POST" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="btn btn-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+        <a href="{% url 'password_reset' %}">Forgot Password?</a>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     
+    <!-- Custom JS -->
+     
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the form from submitting the normal way
+    
+            // Get the form data
+            const formData = new FormData(this);
+            const csrfToken = formData.get('csrfmiddlewaretoken'); // CSRF token for Django
+    
+            // Create the JSON object for submission
+            const data = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+    
+            // Make the POST request to the server to authenticate
+            try {
+                const response = await fetch('/accounts/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken  // Include CSRF token in header
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                if (response.ok) {
+                    const responseData = await response.json();
+    
+                    // Check if the response includes a token
+                    if (responseData.access_token) {
+                        // Store the token in localStorage for future use
+                        localStorage.setItem('access_token', responseData.access_token);
+    
+                        // Fetch the user profile (including image) after successful login
+                        fetchUserProfile(responseData.access_token);
+    
+                        // Redirect to the dashboard
+                        window.location.href = '/accounts/dashboard';  // Redirect to dashboard page
+                    } else {
+                        alert('Failed to receive token from server.');
+                    }
+                } else {
+                    const errorData = await response.json();
+                    alert('Login failed: ' + errorData.detail);
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An error occurred during login. Please try again later.');
+            }
+        });
+    
+        // Function to fetch the user's profile image using the access token
+        async function fetchUserProfile(token) {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/accounts/api/userprofile/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`  // Send the token as authorization
+                    }
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    const profileImgElement = document.getElementById('profile-img');
+    
+                    if (data.image_url) {
+                        profileImgElement.src = data.image_url;  // Set the image source to the fetched URL
+                    } else {
+                        console.error('No image available for this user.');
+                    }
+                } else {
+                    console.error('Failed to fetch user profile.');
+                }
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        }
+    </script>
+    
+</body>
+</html>

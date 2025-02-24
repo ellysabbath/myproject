@@ -1,0 +1,257 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}matukio na karenda ya kanisa-Iyumbu kanisa karendar{% endblock %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+
+    <div class=" align-items-center" class="text-center">
+      <header class="align-items-center justify-content-center justify-content-between" onclick="">
+          <div>
+           <strong class="card-title text-center">karendar na matukio ya kanisa</strong>
+         </div>
+         <div>
+    <form id="eventForm" onsubmit="handleSubmit(event)">
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label class="form-label">Jina la Tukio</label>
+                <input type="text" name="name" class="form-control" id="validatename" placeholder="Jina la tukio..." required>
+                <div class="invalid-feedback">Jina la tukio linahitajika...</div>
+            </div>
+            <div class="col-lg-6">
+                <label class="form-label">Tarehe ya Kufanya Tukio</label>
+                <input type="date" name="tarehe-tukio" class="form-control" id="tarehe-kalendar" required>
+                <div class="invalid-feedback">Tarehe inahitajika</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label class="form-label">Lengo la Tukio</label>
+                <textarea class="form-control" placeholder="Weka lengo la tukio..." required name="lengo" id="lengo"></textarea>
+                <div class="invalid-feedback">Lengo la tukio linahitajika</div>
+            </div>
+            <div class="col-lg-6">
+                <label class="form-label">Gharama ya Tukio</label>
+                <input type="text" name="gharama" id="gharama" placeholder="Gharama..." class="form-control">
+                <div class="invalid-feedback">Jaza gharama ya kufanikisha tukio</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label>Wahusika wa Tukio</label>
+                <input type="text" name="wahusika" id="wahusika" placeholder="Wahusika wa tukio..." required class="form-control">
+                <div class="invalid-feedback">Wahusika wanahitajika</div>
+            </div>
+            <div class="col-lg-6">
+                <label>Idadi ya Wahusika</label>
+                <input type="text" name="idadi" required placeholder="Makadirio ya idadi" id="idadi" class="form-control">
+                <div class="invalid-feedback">Weka makadirio ya idadi</div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Namna ya Kufanikisha</label>
+            <textarea name="namna" id="namna" required placeholder="Namna ya kufanikisha kwa ufupi..." class="form-control"></textarea>
+            <div class="invalid-feedback">Namna inahitajika</div>
+        </div>
+        <button type="submit" class="btn btn-primary form-control">Tuma</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+async function handleSubmit(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = {
+        name: document.getElementById('validatename').value,
+        tareheTukio: document.getElementById('tarehe-kalendar').value,
+        lengo: document.getElementById('lengo').value,
+        gharama: document.getElementById('gharama').value,
+        wahusika: document.getElementById('wahusika').value,
+        idadi: document.getElementById('idadi').value,
+        namna: document.getElementById('namna').value
+    };
+
+    try {
+        const response = await fetch('http://localhost:8080/api/karenda', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Mafanikio!',
+                text: 'Tukio limeundwa kwa mafanikio!',
+            }).then(() => {
+                document.getElementById('eventForm').reset(); // Reset the form
+            });
+        } else {
+            const errorText = await response.text(); // Get the response text for more info
+            throw new Error(`Failed to submit form: ${errorText}`);
+        }
+    } catch (error) {
+        console.error('Error:', error); // Log the error to the console
+        Swal.fire({
+            icon: 'error',
+            title: 'Hitilafu!',
+            text: error.message,
+        });
+    }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         </div>
+    </div>
+</div>
+      
+
+     
+  
+<!--  ======================================kanisa mipango kazi ya mwaka===============================-->
+ 
+
+   
+  
+   <!--=================================cards starts=================================-->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mipangokazi na Taarifa ya Mwaka ya Kanisa</h5>
+                <form id="annualForm">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="date" class="form-label">Tarehe ya Mpangokazi</label>
+                            <input type="date" name="date" required id="date" class="form-control">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="idara" class="form-label">Idara</label>
+                            <select class="form-control" id="idara" required>
+                                <option selected disabled value="">Chagua Idara...</option>
+                                <option value="ujenzi">Ujenzi</option>
+                                <option value="huduma binafsi">Huduma Binafsi</option>
+                                <option value="mashemasi">Mashemasi</option>
+                                <option value="fedha">Fedha</option>
+                                <option value="usikivu">Usikivu</option>
+                                <option value="uwakili">Uwakili</option>
+                                <option value="kaya na familia">Kaya na Familia</option>
+                                <option value="Afya na kiasi">Afya na Kiasi</option>
+                                <option value="mahitaji maalumu">Mahitaji Maalumu</option>
+                                <option value="wana wa kike">Wana wa Kike</option>
+                                <option value="uchapaji">Uchapaji</option>
+                                <option value="roho ya unabii">Roho ya Unabii</option>
+                                <option value="sauti ya unabii">Sauti ya Unabii</option>
+                                <option value="muziki">Muziki</option>
+                                <option value="dorkasi">Dorkasi</option>
+                                <option value="amo">Amo</option>
+                                <option value="atape">Atape</option>
+                                <option value="watoto">Watoto</option>
+                                <option value="makundi">Makundi...</option>
+                                <option value="majengo">Majengo</option>
+                                <option value="wazee">Ofisi ya Wazee</option>
+                                <option value="shule ya sabato">Shule ya Sabato</option>
+                                <option value="vijana">Vijana</option>
+                                <option disabled>-- Kategoria Vijana --</option>
+                                <option value="vijana SYL">Senior Youth Leader (SYL)</option>
+                                <option value="vijana MG">Master Guide (MG)</option>
+                                <option value="vijana mambalozi">Mabalozi</option>
+                                <option value="vijana PFC">Path Finder Club (PFC)</option>
+                                <option value="vijana AC">Adventurers Club (AC)</option>
+                                <option value="vijana mpya">Vijana Mpya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="mpangokazi" class="form-label">Mpangokazi</label>
+                            <textarea required name="mpangokazi" id="mpangokazi" class="form-control" placeholder="Mpangokazi wa mwaka..."></textarea>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="mamboDone" class="form-label">Mambo Yaliyo Fanyika</label>
+                            <textarea required name="mamboDone" id="mamboDone" class="form-control" placeholder="Mambo yaliyo fanyika..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label for="mamboFailed" class="form-label">Mambo Yaliyo Faili</label>
+                            <textarea required name="mamboFailed" id="mamboFailed" placeholder="Mambo ambayo hayakufanikiwa..." class="form-control"></textarea>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="causes" class="form-label">Sababu za Kuto Fanikiwa</label>
+                            <textarea required name="causes" id="causes" placeholder="Sababu za kuto fanikiwa..." class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label for="suggestion" class="form-label">Mapendekezo</label>
+                        <textarea required name="suggestion" id="suggestion" placeholder="Mapendekezo kwa mwaka ujao..." class="form-control"></textarea>
+                    </div>
+                    <br>
+                    <div class="">
+                        <input type="submit" id="wasilisha" value="Wasilisha" class="btn btn-primary form-control">
+                    </div>
+                </form>
+
+                <script>
+                    document.getElementById("annualForm").addEventListener("submit", function(event) {
+                        event.preventDefault();
+
+                        const formData = {
+                            tarehe: document.getElementById("date").value,
+                            idara: document.getElementById("idara").value,
+                            mpangokazi: document.getElementById("mpangokazi").value,
+                            mamboDone: document.getElementById("mamboDone").value,
+                            mamboFailed: document.getElementById("mamboFailed").value,
+                            causes: document.getElementById("causes").value,
+                            suggestion: document.getElementById("suggestion").value,
+                        };
+
+fetch("http://localhost:8080/api/annual/submit", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData)
+})
+.then(response => {
+    if (!response.ok) {
+        return response.text().then(text => {
+            throw new Error("Network response was not ok: " + text);
+        });
+    }
+    return response.json();
+})
+.then(data => {
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: data.message || 'Data successfully submitted!'
+    });
+    document.getElementById("annualForm").reset();
+})
+.catch(error => {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'There was an error: ' + error.message
+                });
+                 });
+
+          });
+                </script>
+            </div>
+        </div>
+
+<!--              </div>-->
+<!-- =========================on  process of backend======================================================-->
+
+              </div>
+            </div>
+            </div>
+    </section>
+  
+
+{% endblock %}

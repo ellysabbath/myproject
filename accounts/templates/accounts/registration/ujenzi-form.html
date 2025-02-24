@@ -1,0 +1,210 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}ujenzi-idara ya ujenzi na majeni-iyumbu sda church{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text text-primary text text-center">jaza taarifa za awali</h5>
+        <form action="">
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="fname" class="text-center text-primary">full name</label>
+                <input type="text" class="form-control text-center" name="fname" id="fname" required placeholder="fullname">
+            </div>
+
+            <div class="col-lg-4">
+                <label for="email" class="text-center text-primary">email</label>
+                <input type="email" class="form-control text-center" name="email" id="email" required placeholder="email">
+            </div>
+
+            <div class="col-lg-4">
+                <label for="mobileNumber" class="text-center text-primary">mobile number</label>
+                <input type="number" class="form-control text-center" name="mobileNumber" id="mobileNumber" required placeholder="fullname">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="username" class="text-center  text-primary">username</label>
+                <input type="text"  name="username" id="username" class="form-control text-center" required placeholder="username">
+            </div>
+
+            <div class="col-lg-4">
+                <label for="date-join" class="text-center  text-primary">date join</label>
+                <input type="date"  name="date-join" id="date-join" class="form-control text-center" required placeholder="username">
+            </div>
+
+            <div class="col-lg-4">
+                <label for="date-leave" class="text-center  text-primary">date leave</label>
+                <input type="date"  name="date-leave" id="date-leave" class="form-control text-center" required placeholder="username">
+            </div>
+        </div>
+        
+    </div><br></form>
+    <center>
+        <input type="submit" class="btn btn-primary btn-center" value="submit" id="submit">
+           </center><br><br>
+
+   <form action="">
+    <div class="card-body">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed text-center text-primary   form-control " type="button" style="height: 20px;" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                create CV  by username
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div style="max-height: 400px; overflow-y: auto;"> 
+                        <div class="row">
+                            <div class="col-lg-6">
+                  <label for="username" class="text-primary text-center">username</label>
+                  <input type="text" name="username" id="username" placeholder="username" required class="form-control text-center">
+                    </div>
+                    <div class="col-lg-4">
+                    <label for=".text-primary text-center">CV</label>
+                    <textarea name="cv" id="cv" class="form-control text-center"></textarea>
+                    </div>
+                        </div>
+                    </div><br><br>
+
+
+                    <div class="">
+                        <center>
+                     <input type="submit" class="btn btn-primary btn-center" value="submit" id="submit">
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   </form>
+</div>
+
+
+<div class="card">
+    <form id="wazeeFormMpangokazi"></form>
+    <div class="card-body">
+        <h5 class="card-title text-center text-primary">mipangokazi</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="mpangokazi" class="text-center text-primary">mpangokazi</label>
+                <input type="text" class="form-control text-center"  required placeholder="mpangokazi..." id="mpangokazi" name="mpangokazi">
+            </div>
+            <div class="col-lg-6">
+                <label for="tarehe-ya-kupanga" class="text-center text-primary">tarehe ya kupanga</label>
+                <input type="date" class="text-center form-control" name="tarehe-ya-kupanga" id="tarehe-ya-kupanga" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="wahusika" class="text-center text-primary">wahusika</label>
+                <input type="text" name="wahusika" id="wahusika" class="form-control" required>
+            </div>
+            <div class="col-lg-6">
+                <label for="gharama" class="text-center text-primary">Gharama</label>
+                <input type="number" class="form-control" id="gharama" name="gharama" required>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <label for="namna" class="text-center"></label>
+            <textarea name="namna" id="namna" class="form-control text-center" required name="namna"></textarea>
+        </div><br><br>
+        <div class="">
+            <center>
+         <input type="submit" class="btn btn-primary btn-center" value="submit" id="submit">
+            </center>
+        </div>
+    </div>
+
+    
+    </div>
+    </div>
+    
+</div>
+
+<div class="card">
+    <div class="card-body">
+        
+<h5 class="text-center text-primary card-title">
+taarifa
+</h5>
+<div class="row">
+    <div class="col-lg-6">
+        <label for="mpangokazi-done" class="text-primary text-center">mpangokazi</label>
+        <input type="text" name="mpangokazi-done" id="mpangokazi-done" class="form-control text-center" required>
+    </div>
+    <div class="col-lg-6">
+        <label for="status" class="text-center">ufanisi</label>
+        <select name="ufanisi" id="ufanisi" class="form-control text-center" required>
+            <option value selected disabled>ufanisi...</option>
+            <option value="ulitekelezwa">ulitekelezwa</option>
+            <option value="haukutekelezwa">haukutekelezwa</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div>
+        <lablel  for="cost" class="text-center text-primary">cost</lablel>
+        <input type="number" class="form-control" name="cost" id="cost" required>
+    </div>
+    <div>
+        <label for="sababu" class="text-center text-primary">sababubza kufanikiwa  au la</label>
+        <textarea type="text" name="sababu" id="sababu" class="form-control" required></textarea>
+    </div>
+    <div class="">
+        <label for="ushauri" class="text-primary">ushauri/mapendekezo</label>
+        <textarea name="ushauri" id="ushauri" class="form-control text-center" required placeholder="ushauri..."></textarea>
+    </div>
+</div><br>
+<div class="">
+    <center>
+ <input type="submit" class="btn btn-primary btn-center" value="submit" id="submit">
+    </center>
+</div>
+        </div>
+    </div>
+</div>
+
+<form action="">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="text-primary text-center card-title">Mali zilizopo chini ta idara ya ujenzi</h5>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="jina-mali" class="text-primary">jina la mali</label>
+                    <input type="text" id="jina-mali" name="jina-mali" placeholder="jina la mali" class="form-control" required>
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="idadi" class="text-primary">jumla idadi</label>
+                    <input type="number" class="form-control" name="idadi" id="idadi" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="vizima" class="text-primary">idadi ya vizima</label>
+                    <input type="number" class="form-control" id="vizima" name="vizima" required>
+                </div>
+                <div class="col-lg-6">
+                    <label for="vibovu" class="text-primary">idadi ya vibovu</label>
+                    <input type="number" class="form-control" name="vibovu" id="vibovu" required>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <label for="gharama" class="text-primary">gharama</label>
+                <input type="number" class="form-control" name="gharama" id="gharama" required>
+            </div><br><br>
+            <div class="">
+                <center>
+             <input type="submit" class="btn btn-primary btn-center" value="submit" id="submit">
+                </center>
+            </div>
+        </div>
+
+       
+    </div>
+</form>
+{% endblock %}

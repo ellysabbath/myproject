@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Platform</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #007bff;
+        }
+        .navbar a {
+            color: white !important;
+        }
+        .hero-section {
+            background-color: #007bff;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .feature-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+        }
+        .feature-card img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .feature-card h5 {
+            margin-top: 20px;
+            color: #007bff;
+            
+            
+        }
+        .cta-section {
+            background-color: #343a40;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .cta-section .btn-primary {
+            padding: 12px 40px;
+            font-size: 18px;
+            border-radius: 5px;
+            background-color: #007bff;
+            border: none;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Iyumbu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+               <li>
+                <a href="#" class="nav-link">contact</a>
+               </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h3 class="text text-center">Welcome to Our Iyumbu SDA Church</h3>
+        <p class="text text-center">Get registered to iyumbu Sda church for further growth of the church and completing our mission</p>
+        <a href="{% url 'dashboad' %}" class="btn btn-primary btn-lg">Continue to Dashboard</a>
+
+    </section>
+
+    <!-- Features Section -->
+    <div class="container text-center my-5">
+        <h2 class="text text-success">Basics</h2>
+        <p class="text text-success">Our faith is based  on Heavenly GOD</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <p class="text-success"><i>Luka 10:2-5
+                        [2]Akawaambia, Mavuno ni mengi, lakini watenda kazi ni wachache; basi mwombeni Bwana wa mavuno apeleke watenda kazi katika .
+                        
+                        [3]Enendeni, angalieni, nawatuma kama wana kondoo kati ya mbwa-mwitu. 
+                        Go your ways: behold, I send you forth as lambs among wolves.
+                        [4]Msichukue mfuko, wala mkoba, wala viatu; wala msimwamkie mtu njiani. 
+                        
+                        [5]Na nyumba yo yote mtakayoingia, semeni kwanza, Amani iwemo nyumbani humu; 
+                       
+                    </i></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                  <p class="text-warning"><i>Danieli 7:9-10
+                    [9]
+                    I beheld till the thrones were cast down, and the Ancient of days did sit, whose garment was white as snow, and the hair of his head like the pure wool: his throne was like the fiery flame, and his wheels as burning fire.
+                    [10]
+                    A fiery stream issued and came forth from before him: thousand thousands ministered unto him, and ten thousand times ten thousand stood before him: the judgment was set, and the books were opened.</i></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                <p class="text-primary"><i>Isaya 58:2-3
+                    [2]
+                    Yet they seek me daily, and delight to know my ways, as a nation that did righteousness, and forsook not the ordinance of their God: they ask of me the ordinances of justice; they take delight in approaching to God.
+                    [3]
+                    Wherefore have we fasted, say they, and thou seest not? wherefore have we afflicted our soul, and thou takest no knowledge? Behold, in the day of your fast ye find pleasure, and exact all your labours.</i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<section class="section">
+    <div class="row mb-3">
+        <div class="col-lg-6 align-items-center">
+    <h5 class="text-success">contacts</h5>
+    
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+          <i class="bi bi-geo-alt flex-shrink-0"></i>
+          <div>
+            <h3>Address</h3>
+            <p>Iyumbu street, Dodoma, Tanzania</p>
+          </div>
+        </div><!-- End Info Item -->
+
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+          <i class="bi bi-telephone flex-shrink-0"></i>
+          <div>
+            <h3>Call Us</h3>
+            <p>+255 742 57 8691</p>
+          </div>
+        </div><!-- End Info Item -->
+
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+          <i class="bi bi-envelope flex-shrink-0"></i>
+          <div>
+            <h3>Email Us</h3>
+            <p>mwananjelaelisha36@gmail.com</p>
+          </div>
+        </div><!-- End Info Item -->
+    </div>
+    <div class="col-lg-6 align-items-center">
+        <div class="info-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+        </div>
+    </div>
+      </div>
+</section>
+    <!-- Call to Action Section -->
+    <section class="cta-section" id="signup">
+        <h4>Ready to get started?</h4>
+        <p>Join iyumbu Sda church for God's building kingdom.</p>
+        <a href="{% url 'sign-up' %}" class="btn btn-primary">Sign Up Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Iyumbu SDA Church. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

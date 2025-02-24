@@ -1,0 +1,591 @@
+{% extends 'accounts/base.html' %}
+
+
+{% block title %}mhazini-iyumbu sda church{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="row mb-3">
+      <div class="col-lg-12"> <!-- Changed to col-lg-12 for full width on large screens -->
+  
+        <div class="card">
+          <div class="card-body">
+              <h5 class="text text-primary-emphasis">Mipango kazi ya idara ya Hazina</h5>
+              <form id="mhazini-form" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="date" class="text text-primary-emphasis">Date:</label>
+                        <div class="input-group">
+                            <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                                <i class="bi bi-calendar-event"></i>
+                            </span>
+                            <input type="month" name="date" id="date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="aim" class="text text-primary-emphasis">Mpangokazi:</label>
+                        <div class="input-group">
+                            <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                                <i class="bi bi-tag"></i>
+                            </span>
+                            <input type="text" name="aim" id="aim" class="form-control" required placeholder>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="cost" class="text text-primary-emphasis">Gharama:</label>
+                        <div class="input-group">
+                            <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                                <i class="bi bi-puzzle"></i>
+                            </span>
+                            <input type="text" name="cost" id="cost" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="experts" class="text text-primary-emphasis">Wahusika:</label>
+                        <div class="input-group">
+                            <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                                <i class="bi bi-people"></i>
+                            </span>
+                            <input type="text" name="experts" id="experts" class="form-control" required placeholder>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="">
+                    <label for="method" class="text text-primary-emphasis">Ufanikishaji:</label>
+                    <div class="input-group">
+                        <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                            <i class="bi bi-hand-index-thumb"></i>
+                        </span>
+                        <textarea name="method" id="method" class="form-control" placeholder="How will the project be completed?" required></textarea>
+                    </div>
+                </div><br><br>
+            
+                <div class="">
+                    <input type="submit" name="submit" id="submit" class="btn btn-primary form-control">
+                </div>
+            </form>
+            
+            <script>
+document.getElementById('mhazini-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get form data
+    const formData = new FormData(this);
+    const data = {
+        date: formData.get('date'),
+        aim: formData.get('aim'),
+        cost: formData.get('cost'),  // Treating cost as a string
+        experts: formData.get('experts'),
+        method: formData.get('method')
+    };
+
+    // Get CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Send data to the API
+    fetch('/accounts/api/mipangokazi/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,  // CSRF token
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle success
+        Swal.fire({
+            icon: 'success',
+            title: 'Data Submitted Successfully!',
+            text: 'Your Mipango kazi entry has been added.',
+            confirmButtonText: 'OK',
+        });
+
+        // Disable form after successful submission
+        document.getElementById('mhazini-form').reset();
+        document.querySelector("button[type='submit']").disabled = true;
+    })
+    .catch((error) => {
+        // Handle error
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an issue submitting the form.',
+            confirmButtonText: 'OK',
+        });
+
+        // Re-enable the submit button
+        document.querySelector("button[type='submit']").disabled = false;
+    });
+});
+
+</script>
+
+            </script>
+            
+            
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <!-- Include SweetAlert2 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  
+  
+  <br></div></div>
+  
+  <!--        ===========================recepts per individual form=============================-->
+  
+  <div class="card">
+      <div class="card-body">
+          <h5 class="text text-primary-emphasis">recepts per individual records</h5>
+          <form id="updateForm">
+          <div class="row mb-3">
+              <div class="col-lg-6">
+                  <label for="dateindividual" class="text text-primary-emphasis">date</label>
+                  <div class="input-group">
+                      <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                          <i class="bi bi-calendar-heart"></i>
+                      </span>
+                      <input type="date" name="dateindividual" id="dateindividual" class="form-control" required><!-- comment -->
+                  </div>
+              </div>
+              <div class="col-lg-6">
+                  <label class="text text-primary-emphasis" for="username">username</label>
+                  <div class="input-group">
+                      <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                          <i class="bi bi-person-add"><!-- comment --></i>
+                      </span>
+                      <input type="text" name="username" id="username" class="form-control" required><!-- comment -->
+                  </div>
+              </div>
+          </div>
+              
+              <div class="row mb-3">
+                  <div class="col-lg-6">
+                      <label for="amount" class="text text-primary-emphasis">amount</label>
+                      <div class="input-group">
+                          <span class="text text-secondary-emphasis input-group-text">
+                              <i class="bi bi-coin"><!-- comment --></i>
+                          </span>
+                          <input type="number" name="amount" id="amount" class="form-control" required><!-- comment -->
+                      </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <label for="direction" class="text text-primary-emphasis">direction</label>
+                      <div class="input-group"><!-- comment -->
+                          <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                              <i class="bi bi-arrow-counterclockwise"><!-- comment --></i></span>
+                              <select class="form-control text text-secondary-emphasis" name="direction" id="direction" required>
+                                  <option selected disabled value="">Select direction....</option>
+                                  <option value="Central Tanzania Field(CTF)">Central Tanzania Field(CTF)</option>
+                                  <option value="Iyumbu">Current church</option>
+                                  <option value="street">Our street</option>
+                              </select>
+                          
+                      </div>
+                  </div>
+              </div>
+              <div class="row mb-3"><!-- comment -->
+                  <div class="col-lg-6">
+                  <label for="confirmationStatus" class="text text-primary-emphasis">confirmation:</label>
+                  <div class="input-group"><!-- comment -->
+                      <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+                          <i class="bi bi-signpost"><!-- comment --></i>
+                      </span>
+                      <select id="confirmationStatus" name="confirmationStatus" class="form-control" required>
+                          <option value="" selected disabled>select  confirmation status....</option> 
+                          <option value="verified">verified</option>
+                          <option value="unverified">unverified</option>
+                      </select>
+                  </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <label for="leaderName" class="text text-primary-emphasis">name-of-a-leader</label>
+                      <div class="input-group">
+                          <span class="input-group-text text text-secondary-emphasis" id="basic-addon1">
+                              leader name
+                          </span>
+                          <input type="text" name="leaderName" id="leaderName" class="form-control" placeholder="" required><!-- comment -->
+                      </div>
+                  </div>
+              </div>
+              
+  <!-- =================================attach pdf file================================-->
+  <!--<div class="">
+      <label for="pdf" class="text text-primary-emphasis">you can add PDF document here</label>
+      <diV class="input-group">
+          <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">
+              <i class="bi bi-file-pdf-fill"></i>
+          </span>
+          <input type="file" id="file" name="file" class="form-control" required> comment 
+      </div>
+  </div><br><br>-->
+  
+  <!--===================================end of attach pdf file======================-->
+              <div class="">
+                  <button type="submit" class="btn btn-primary ladda-button form-control" data-style="expand-right">
+                      <span class="ladda-label">submit</span>
+                      <span class="ladda-spinner"></span>
+                  </button>
+              </div>
+  
+  
+  
+  
+  
+          </form>
+      </div>
+  </div>
+      <!-- Add Bootstrap JS (optional if you haven't included it yet) -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Add SweetAlert2 JS -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <!-- Add Font Awesome for icons -->
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  
+  
+  
+  
+  <!--======================================end receipts per individual form===========================-->
+        
+  <!--   ==================================cash and bank reconcilation======================== -->
+    
+  <div class="card">
+      <div class="card-body">
+          <h5 class="text text-primary-emphasis text-center">Bank and Cash reconciliation records</h5><hr><!-- comment -->
+  <!-- Your form HTML -->
+  <form id="bankForm">
+      <div class="row b-3">
+          <!-- Bank Transaction Date -->
+          <div class="col-lg-6">
+              <h6 class="text text-secondary-emphasis">Bank Transactions</h6><br>
+              <label for="dateOfBankTransaction" class="text text-primary-emphasis">Date of Bank Transaction</label>
+              <div class="input-group">
+                  <span class="text text-secondary-emphasis input-group-text">Bank Date</span>
+                  <input type="date" name="dateOfBankTransaction" id="dateOfBankTransaction" required class="form-control">
+              </div>
+          </div>
+          
+          <!-- Cash Transaction Date -->
+          <div class="col-lg-6">
+              <h6 class="text text-secondary-emphasis">Cash Transaction</h6><br>
+              <label for="dateOfCashTransaction" class="text text-primary-emphasis">Date of Cash Transaction</label>
+              <div class="input-group">
+                  <span class="text text-secondary-emphasis input-group-text">Cash Date</span>
+                  <input type="date" name="dateOfCashTransaction" id="dateOfCashTransaction" class="form-control" required>
+              </div>
+          </div>
+      </div>
+  
+      <!-- Bank Deposit -->
+      <div class="row mb-3">
+          <div class="col-lg-6">
+              <label for="bankDeposit" class="text text-primary-emphasis">Bank Deposit</label>
+              <div class="input-group">
+                  <span class="text text-secondary-emphasis input-group-text"><i class="bi bi-bank2"></i> Bank Deposit</span>
+                  <input type="number" class="form-control" name="bankDeposit" id="bankDeposit">
+                 
+              </div>
+          </div>
+  
+          <!-- Cash Deposit -->
+          <div class="col-lg-6">
+              <label for="cashDeposit" class="text text-primary-emphasis">Cash Deposit</label>
+              <div class="input-group">
+                  <span class="text text-secondary input-group-text"><i class="bi bi-cash-coin"></i> Cash Deposit</span>
+                  <input type="number" name="cashDeposit" id="cashDeposit" class="form-control">
+                  
+              </div>
+          </div>
+      </div>
+  
+      <!-- Cash and Bank Withdrawals -->
+      <div class="row mb-3">
+          <div class="col-lg-6">
+              <label for="bankWithdrawal" class="text text-primary-emphasis">Bank Withdrawals</label>
+              <div class="input-group">
+                  <span class="text text-secondary-emphasis input-group-text">Bank Withdrawals</span>
+                  <input type="number" name="bankWithdrawal" id="bankWithdrawal" class="form-control">
+                
+              </div>
+          </div>
+  
+          <div class="col-lg-6">
+              <label for="cashWithdrawals" class="text text-primary-emphasis">Cash Withdrawals</label>
+              <div class="input-group">
+                  <span class="text text-secondary-emphasis input-group-text">Cash Withdrawals</span>
+                  <input type="number" name="cashWithdrawals" id="cashWithdrawals" class="form-control">
+                 
+              </div>
+          </div>
+      </div>
+  
+      <!-- Reason for Transaction -->
+      <div class="">
+          <label for="reason" class="text text-primary-emphasis">Reason</label>
+          <div class="input-group">
+              <span class="text text-secondary-emphasis input-group-text"><i class="bi bi-braces-asterisk"></i></span>
+              <textarea name="reason" id="reason" placeholder="Reason for transaction..." class="form-control" required></textarea>
+          </div>
+      </div><br><br>
+  
+      <!-- Submit Button -->
+      <div>
+          <input type="submit" name="submit" id="submit" class="btn btn-primary form-control">
+      </div>
+  </form>
+  
+  <!-- SweetAlert2 and Script for Form Submission -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  
+      </div>
+  </div>
+  <!--========================================end  cash and bank reconcilation====================-->
+  
+  <!--   =========================================cash budget========================== -->
+  
+  <div class="card">
+      <div class="card-body">
+          <h5>
+              cah budget record
+          </h5>
+          <form id="budgetForm">
+          <div class="">
+              <div class="">
+                  <label for="period" class="text text-primary-emphasis">budget period</label>
+                  <div class="input-group">
+                      <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">budget period</span>
+                      <input type="month" name="period" id="period" class="form-control" required><!-- comment -->
+                  </div>
+              </div>
+            
+          </div><br><!-- comment -->
+            <div class="row mb-3">
+                <h5 class="text text-secondary-emphasis text text-center">
+                    <strong>Income</strong>
+                </h5>
+                <div class="col-lg-6">
+                    <label for="incomesource" class="text text-primary-emphasis">receipt source</label>
+                    <div class="input-group">
+                        <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">income source</span>
+                        <input type="text" name="incomesource" id="incomesource" placeholder="income source...." required class="form-control"><!-- comment -->
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="incomeAmount" class="text text-primary-emphasis">amount</label>
+                    <div class="input-group">
+                        <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">amount</span>
+                        <input type="number" id="incomeAmount" name="incomeAmount" class="form-control" required><!-- comment -->
+                    </div>
+                </div>
+                  
+              </div>
+          
+          
+          <br><!-- comment -->
+            <div class="row mb-3">
+                <h5 class="text text-secondary-emphasis text text-center">
+                    <strong>Expence</strong>
+                </h5>
+                <div class="col-lg-6">
+                    <label for="expenseCategory" class="text text-primary-emphasis">expence category</label>
+                    <div class="input-group">
+                        <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">category</span>
+                        <input type="text" name="expenseCategory" id="expenseCategory" placeholder="expence category...." required class="form-control"><!-- comment -->
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="expenseAmount" class="text text-primary-emphasis">amount</label>
+                    <div class="input-group">
+                        <span class="text text-secondary-emphasis input-group-text" id="basic-addon1">amount</span>
+                        <input type="number" id="expenseAmount" name="expenseAmount" class="form-control" required><!-- comment -->
+                    </div>
+                </div>
+                  
+              </div>
+          <div class="">
+              <input type="submit" value="submit" class="btn btn-primary form-control"><!-- comment -->
+          </div>
+          </form>
+  
+      </div>
+  </div>
+  
+  
+  <!--================================================end cash budget==============================-->
+      </div>
+     </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+document.getElementById('budgetForm').addEventListener('submit', function(e) {
+    e.preventDefault();  // Prevent default form submission
+
+    // Get form data
+    const formData = new FormData(this);
+
+    // Optionally, include the CSRF token if needed
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Optionally, include the authentication token if needed (e.g. from localStorage or sessionStorage)
+    const authToken = localStorage.getItem('authToken'); // Adjust this line based on your app
+
+    // Set up the request headers (CSRF and Authorization if needed)
+    const headers = {
+        'X-CSRFToken': csrfToken,  // Add CSRF token to header if applicable
+    };
+
+    if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`; // Add Authorization header if needed
+    }
+
+    // Submit the form to the cash budget API
+    fetch('/accounts/api/cash-budget/', {
+        method: 'POST',
+        body: formData,
+        headers: headers,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Cash Budget Submitted!',
+                text: 'Your cash budget entry has been successfully added.',
+            });
+        } else {
+            // Handle errors from the server
+            Swal.fire({
+                icon: 'success',
+                title: 'Cash Budget Submitted!',
+                text: 'Your cash budget entry has been successfully added.',
+            });
+        }
+    })
+    .catch(error => {
+        // Handle any network errors or exceptions
+        Swal.fire({
+            icon: 'error',
+            title: 'Network Error',
+            text: 'Could not connect to the server. Please check your internet connection.',
+        });
+    });
+});
+
+    </script>
+
+
+<!--  =======================end=======================-->
+  <script>
+document.getElementById('bankForm').addEventListener('submit', function(e) {
+    e.preventDefault();  // Prevent default form submission
+
+    // Get form data
+    const formData = new FormData(this);
+
+    // Get CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Set up the headers for the request
+    const headers = new Headers();
+    headers.append('X-CSRFToken', csrfToken);  // Add CSRF token
+
+    // Submit the form to the bank reconciliation API
+    fetch('/accounts/api/banks-reconciliation/', {
+        method: 'POST',
+        headers: headers,  // Include CSRF token
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Bank & Cash Reconciliation Submitted!',
+                text: 'Your reconciliation records have been submitted.',
+            });
+        } else {
+            // Error message
+            Swal.fire({
+                icon: 'success',
+                title: 'Bank & Cash Reconciliation Submitted!',
+                text: 'Your reconciliation records have been submitted.',
+            });
+        }
+    })
+    .catch(error => {
+        // Catch network or other errors
+        Swal.fire({
+            icon: 'error',
+            title: 'Network Error',
+            text: 'Could not connect to the server. Please check your internet connection.',
+        });
+    });
+});
+
+  </script>
+  <!-- =======================================end second========================== -->
+   <script>
+   document.getElementById('updateForm').addEventListener('submit', function(e) {
+    e.preventDefault();  // Prevent default form submission
+
+    // Get form data
+    const formData = new FormData(this);
+
+    // Get the CSRF token from the page
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Add CSRF token to the request headers
+    const headers = new Headers();
+    headers.append('X-CSRFToken', csrfToken);
+
+    // Submit the form to the receipts API
+    fetch('/accounts/api/receipts/', {
+        method: 'POST',
+        headers: headers, // Include CSRF token
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show a success message using SweetAlert2
+            Swal.fire({
+                icon: 'success',
+                title: 'Receipt Submitted!',
+                text: 'Your receipt record has been successfully added.',
+            });
+        } else {
+            // Handle errors from the server
+            Swal.fire({
+                icon: 'success',
+                title: 'Receipt Submitted!',
+                text: 'Your receipt record has been successfully added.',
+            });
+        }
+    })
+    .catch(error => {
+        // Handle any errors in case of network issues
+        Swal.fire({
+            icon: 'error',
+            title: 'Network Error',
+            text: 'Could not connect to the server. Please check your internet connection.',
+        });
+    });
+});
+
+   </script>
+   <!-- ===============================end third========================= -->
+  
+    
+        
+  </section>
+{% endblock %}
