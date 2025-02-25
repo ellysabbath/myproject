@@ -103,54 +103,66 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img id="profile-img" src="#" alt="Profile" class="rounded-circle" />
-            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-        </a>
-        
-        <script>
-            // Get the token from localStorage
-            const token = localStorage.getItem('access_token');
-        
-            if (token) {
-                fetch('/accounts/api/userprofile/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,  // Send the token in the header
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Check if the image exists and update the profile image
-                    const profileImgElement = document.getElementById('profile-img');
-                    if (data.image) {
-                        profileImgElement.src = data.image;  // Set the image source to the URL returned from API
-                    } else {
-                        profileImgElement.src = '/path/to/default/profile/image.jpg';  // Default image if no profile image
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching user profile:', error);
-                });
-            } else {
-                console.log('No token found');
-            }
-        </script>
+         <!-- base.html -->
+<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+  <img id="profile-img-navbar" src="/path/to/default/profile/image.jpg" alt="Profile" class="rounded-circle" />
+  <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+</a>
+
+<script>
+  // Get the token from localStorage
+  const token = localStorage.getItem('access_token');
+
+  if (token) {
+      fetch('/accounts/api/userprofile/', {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`,  // Send the token in the header
+              'Content-Type': 'application/json',
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          // Check if the image exists and update the profile image
+          const profileImgElementNavbar = document.getElementById('profile-img-navbar');
+          if (data.image) {
+              profileImgElementNavbar.src = data.image;  // Set the image source to the URL returned from API
+          } else {
+              profileImgElementNavbar.src = '/path/to/default/profile/image.jpg';  // Default image if no profile image
+          }
+
+          // Also update the profile image in the users-profile page
+          const profileImgElementProfile = document.getElementById('profile-img-profile');
+          if (profileImgElementProfile) {
+              if (data.image) {
+                  profileImgElementProfile.src = data.image;  // Set the image source to the URL returned from API
+              } else {
+                  profileImgElementProfile.src = '/path/to/default/profile/image.jpg';  // Default image if no profile image
+              }
+          }
+      })
+      .catch(error => {
+          console.error('Error fetching user profile:', error);
+      });
+  } else {
+      console.log('No token found');
+  }
+</script>
+
         
           
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{user.username}}</h6>
-              <span>Web Designer</span>
+              <span>{{user.email}}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'user_profile' %}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -160,7 +172,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'help' %}">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -297,15 +309,15 @@
           <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
             <li>
-              <a href="{% url 'matoleo' %}">
+              <a href="{% url 'matoleo_fill_info' %}">
                   <i class="bi bi-circle"></i><span>matoleo</span>
               </a>
           </li>
-              <li>
+              <!-- <li>
                   <a href="{% url 'wazee' %}">
                       <i class="bi bi-circle"></i><span>wazee</span>
                   </a>
-              </li>
+              </li> -->
       
               <li>
                   <a href="{% url 'mhazini' %}">
@@ -313,39 +325,39 @@
                   </a>
               </li>
       
-              <li>
+              <!-- <li>
                   <a href="{% url 'karani' %}">
                       <i class="bi bi-circle"></i><span>karani</span>
                   </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                   <a href="{% url 'mashemasi' %}">
                       <i class="bi bi-circle"></i><span>Idara ya mashemasi</span>
                   </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                   <a href="{% url 'shule' %}">
                       <i class="bi bi-circle"></i><span>shule ya sabato</span>
                   </a>
-              </li>
+              </li> -->
       
-              <li>
+              <!-- <li>
                   <a href="{% url 'ujenzi' %}">
                       <i class="bi bi-circle"></i><span>ujenzi</span>
                   </a>
-              </li>
+              </li> -->
       
-              <li>
+              <!-- <li>
                   <a href="{% url 'vijana' %}">
                       <i class="bi bi-circle"></i><span>Idara ya vijana</span>
                   </a>
               </li>
-      
-              <li>
+       -->
+              <!-- <li>
                   <a href="{% url 'kwaya' %}">
                       <i class="bi bi-circle"></i><span>kwaya</span>
                   </a>
-              </li>
+              </li> -->
       
               <li>
                   <a href="{% url 'amo' %}">
@@ -353,29 +365,29 @@
                   </a>
               </li>
       
-              <li>
+              <!-- <li>
                   <a href="{% url 'dorkasi' %}">
                       <i class="bi bi-circle"></i><span>Dorcas</span>
                   </a>
-              </li>
-      
+              </li> -->
+<!--       
               <li>
                   <a href="{%url 'huduma' %}">
                       <i class="bi bi-circle"></i><span>Huduma & Uinjilisti</span>
                   </a>
               </li>
-      
-              <li>
+       -->
+              <!-- <li>
                   <a href="{%url 'miradi' %}">
                       <i class="bi bi-circle"></i><span>miradi& Atape </span>
                   </a>
-              </li>
+              </li> -->
       
-              <li>
+              <!-- <li>
                   <a href="{%url 'karenda' %}">
                       <i class="bi bi-circle"></i><span>kanisa karendar/<br>matukio</span>
                   </a>
-              </li>
+              </li> -->
           </ul>
       </li><!-- End Forms Nav -->
       {% endif %}

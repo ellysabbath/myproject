@@ -101,7 +101,7 @@ def dashboad(request):
 def amo_view(request):
     return render(request, 'accounts/registration/amo-form.html')
 
-@login_required
+
 def continue_view(request):
     return render(request, 'accounts/index.html')
 
@@ -233,7 +233,7 @@ def wazee_view(request):
 def shule_view(request):
     return render(request, 'accounts/registration/shule-sabato-form.html')
 
-@login_required
+
 def sign_up_view(request):
     return render(request, 'accounts/registration/signUp.html')
 

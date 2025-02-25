@@ -142,9 +142,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # settings.py
 LOGIN_URL = '/accounts/login/'  # URL for the login page
 LOGIN_REDIRECT_URL = '/'  # URL to redirect to after successful login
-EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_HOST=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER="iyumbusda@gmail.com"
-EMAIL_HOST_PASSWORD="wdhdezvjzbegvdjs"
+# settings.py
+
+# In settings.py for Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'iyumbusda@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'wdhdezvjzbegvdjs'  # Replace with your email password
+
