@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <style>
+        /* General styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Form container */
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* OTP input styling */
+        .otp-input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .otp-input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 24px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .otp-input:focus {
+            border-color: #4CAF50;
+        }
+
+        /* Message styles */
+        .messages {
+            margin-top: 20px;
+        }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .message.success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        .message.warning {
+            background-color: #fcf8e3;
+            color: #8a6d3b;
+        }
+
+        .message.error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+    <script>
+        // JavaScript to automatically focus on the next input field when a character is entered
+        window.onload = function () {
+            const otpFields = document.querySelectorAll('.otp-input');
+            otpFields[0].focus();
+
+            otpFields.forEach((field, index) => {
+                field.addEventListener('input', function() {
+                    if (field.value.length === 1 && index < otpFields.length - 1) {
+                        otpFields[index + 1].focus();
+                    }
+                });
+
+                field.addEventListener('keydown', function(e) {
+                    if (e.key === "Backspace" && index > 0 && field.value === "") {
+                        otpFields[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        // Combine OTP inputs into a single OTP string before submitting the form
+        function combineOTP() {
+            const otpFields = document.querySelectorAll('.otp-input');
+            let otp = '';
+            otpFields.forEach(field => {
+                otp += field.value;
+            });
+            // Set the combined OTP to a hidden field to send with the form
+            document.getElementById('otp_combined').value = otp;
+        }
+    </script>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>Verify your email</h1>
+    <p>Enter the OTP sent to your email.</p>
+
+    <form method="POST" onsubmit="combineOTP()">
+        {% csrf_token %}
+        <div class="otp-input-container">
+            <input type="text" id="otp_1" name="otp_code_1" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp_2" name="otp_code_2" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp_3" name="otp_code_3" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp_4" name="otp_code_4" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp_5" name="otp_code_5" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp_6" name="otp_code_6" class="otp-input" maxlength="1" required>
+        </div>
+        <!-- Hidden field to send the combined OTP -->
+        <input type="hidden" id="otp_combined" name="otp_code">
+        <button type="submit">Verify OTP</button>
+    </form>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

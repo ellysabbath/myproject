@@ -3,170 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IYUMBU SDA LOGIN/ IYUMBU SDA CHURCH DODOMA LOGIN PAGE</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Custom CSS */
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-        }
-        .card {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .card h2 {
-            text-align: center;
-            font-size: 28px;
-            color: #007bff;
-        }
-        .card .form {
-            margin-top: 20px;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        .card .form .form-control {
+        .login-container {
+            background: white;
+            padding: 30px;
             border-radius: 10px;
-            padding: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
         }
-        .card button {
-            width: 100px;
-            height: 50px;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        .card a {
-            display: block;
-            margin-top: 10px;
+
+        .login-title {
             text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            text-align: center;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
             color: #007bff;
             text-decoration: none;
         }
-        .card a:hover {
-            text-decoration: underline;
-        }
 
-        /* Custom danger message styling */
-        .alert-danger {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f8d7da;
-            color: #721c24;
-            border-radius: 5px;
+        .forgot-password a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2 class="my-4 text text-primary">Login</h2>
+    <div class="login-container">
+        <h3 class="login-title">Sign In</h3>
 
-        <!-- Display error message if form is invalid -->
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                Invalid credentials. Please try again.
+        <!-- Display messages (if any) -->
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
             </div>
         {% endif %}
 
-        <form id="loginForm" method="POST" class="form">
+        <!-- Login form -->
+        <form id="loginForm">
             {% csrf_token %}
-            {{ form.as_p }}
-            <div class="btn btn-center">
-                <button type="submit" class="btn btn-primary">Login</button>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn">Sign In</button>
+
+            <div class="forgot-password">
+                <p><a href="{% url 'signup' %}">Don't have an account? Sign up</a></p>
+            </div>
+            <div class="forgot-password">
+                <p><a href="{% url 'Password_link' %}">Forgot your password? Reset here</a></p>
             </div>
         </form>
-        <a href="{% url 'Logged_in' %}">Forgot Password?</a>
     </div>
 
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <!-- Optional Bootstrap JS and Popper.js for some components (e.g., modal) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-     
-    <!-- Custom JS -->
-     
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent the form from submitting the normal way
-    
-            // Get the form data
-            const formData = new FormData(this);
-            const csrfToken = formData.get('csrfmiddlewaretoken'); // CSRF token for Django
-    
-            // Create the JSON object for submission
-            const data = {
-                username: formData.get('username'),
-                password: formData.get('password')
-            };
-    
-            // Make the POST request to the server to authenticate
-            try {
-                const response = await fetch('/accounts/login/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken  // Include CSRF token in header
-                    },
-                    body: JSON.stringify(data)
-                });
-    
-                if (response.ok) {
-                    const responseData = await response.json();
-    
-                    // Check if the response includes a token
-                    if (responseData.access_token) {
-                        // Store the token in localStorage for future use
-                        localStorage.setItem('access_token', responseData.access_token);
-    
-                        // Fetch the user profile (including image) after successful login
-                        fetchUserProfile(responseData.access_token);
-    
-                        // Redirect to the dashboard
-                        window.location.href = '/accounts/dashboard';  // Redirect to dashboard page
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Send login request to API
+            fetch('/accounts/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.access_token) {
+                    console.log(data.message);  // User authenticated or logged in successfully
+                    console.log("Token:", data.access_token);  // Do something with the token if necessary
+
+                    // Check if redirect_url is provided and redirect accordingly
+                    if (data.redirect_url) {
+                        window.location.href = data.redirect_url;  // Redirect to the dashboard
                     } else {
-                        alert('Failed to receive token from server.');
+                        // Optional: Redirect to the dashboard directly if no URL is given
+                        window.location.href = "accounts/dashboard/";
                     }
                 } else {
-                    const errorData = await response.json();
-                    alert('Login failed: ' + errorData.detail);
+                    console.error("Error:", data.message);  // Handle error (invalid username/password)
                 }
-            } catch (error) {
-                console.error('Error during login:', error);
-                alert('An error occurred during login. Please try again later.');
-            }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
-    
-        // Function to fetch the user's profile image using the access token
-        async function fetchUserProfile(token) {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/accounts/api/userprofile/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`  // Send the token as authorization
-                    }
-                });
-    
-                if (response.ok) {
-                    const data = await response.json();
-                    const profileImgElement = document.getElementById('profile-img');
-    
-                    if (data.image_url) {
-                        profileImgElement.src = data.image_url;  // Set the image source to the fetched URL
-                    } else {
-                        console.error('No image available for this user.');
-                    }
-                } else {
-                    console.error('Failed to fetch user profile.');
-                }
-            } catch (error) {
-                console.error('Error fetching user profile:', error);
-            }
-        }
     </script>
-    
 </body>
 </html>

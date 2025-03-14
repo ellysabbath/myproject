@@ -1,5 +1,58 @@
 from django.db import models
 from django.contrib.auth.models import User 
+
+
+
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+import secrets
+import phonenumbers
+from phonenumbers import phonenumberutil
+
+# Helper function to format the mobile number
+def format_mobile_number(mobile_number, region='TZ'):
+    try:
+        # Parse the mobile number with the specified region (defaulting to 'TZ' for Tanzania)
+        phone_number = phonenumbers.parse(mobile_number, region)
+        
+        if not phonenumbers.is_valid_number(phone_number):
+            raise ValueError("Invalid phone number")
+        
+        # Return the phone number in E.164 format (e.g., +255742575555 for Tanzania)
+        return phonenumbers.format_number(phone_number, phonenumberutil.PhoneNumberFormat.E164)
+    except phonenumbers.phonenumberutil.NumberParseException:
+        raise ValueError("Invalid phone number format")
+
+# Custom user model to include email and mobile number
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    mobile_number = models.CharField(max_length=15, blank=True, null=True, default='')
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
+
+    def __str__(self):
+        return self.email
+
+    def clean_mobile_number(self):
+        # Format the mobile number before saving it
+        if self.mobile_number:
+            self.mobile_number = format_mobile_number(self.mobile_number)
+
+# OTP Token model to store OTP information
+class OtpToken(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="otps")
+    otp_code = models.CharField(max_length=6, default=secrets.token_hex(3))  # Modify this later
+    tp_created_at = models.DateTimeField(auto_now_add=True)
+    otp_expires_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+
 class Request(models.Model):
     # Full name of the user making the request
     fullname = models.CharField(max_length=100)
@@ -197,7 +250,7 @@ class Asset(models.Model):
         return self.name
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Link User model
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Reference the custom user model
     image = models.ImageField(upload_to='user_images/%Y/%m/%d/', blank=True, null=True)  # Image field
     
     def __str__(self):

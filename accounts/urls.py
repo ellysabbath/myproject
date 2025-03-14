@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import dashboad
 from django.conf.urls import handler404
-from .views import submit_amo_form,AmoListView,AmoMipangokaziListView,AmoTaarifaListView,RegistrationView,MipangokaziHazinaCreateView, ReceiptsPerIndividualViewSet,UserProfileView, BankCashReconciliationViewSet, CashBudgetRecordsViewSet,AssetListAPIView
+from .views import submit_amo_form,AmoListView,AmoMipangokaziListView,AmoTaarifaListView,RegistrationView,MipangokaziHazinaCreateView, ReceiptsPerIndividualViewSet,UserProfileView,Password_link, BankCashReconciliationViewSet, CashBudgetRecordsViewSet,AssetListAPIView
 
 handler404 = 'accounts.views.page_not_found'
 
@@ -101,6 +101,19 @@ urlpatterns = [
     path('api/assets/', AssetListAPIView.as_view(), name='asset-list'),
     path('api/userprofile/', UserProfileView.as_view(), name='userprofile-api'), 
    # user profile
+
+    path('signup/', views.SignUp, name='signup'),
+  
+    path('verify-email/<str:username>/', views.Verify_email, name='verify-email'),
+    path('resend-otp/', views.resend_otp, name='resend-otp'),
+    path('index/dashboard', views.index, name='index'),
+    path('request-reset-password/', views.request_reset_password, name='request-reset-password'),
+    path('reset-password/<uidb64>/<token>/', views.reset_password, name='reset-password'),
+    path('logout/', views.logout_view, name='logout'),  # Add the logout URL
+    path('send-otp/', views.send_sms, name='send_sms'),
+    path('status-callback/', views.message_status_callback, name='message_status_callback'),
+    path('reset_password_link-in-Email-page', views.Password_link, name='Password_link'),
+    
 
 
 ]

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            margin-top: 80px;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            font-size: 18px;
+            color: #4CAF50;
+        }
+
+        .form-control {
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            box-shadow: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .text-center p {
+            margin-top: 20px;
+        }
+
+        .text-center a {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Message Styling */
+        .error-messages ul {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* Success and Error Messages */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Sign Up</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            
+            {% if form.errors %}
+                <div class="error-messages">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="text-center">
+            <p>Already have an account? <a href="{% url 'Logged_in' %}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 
-
+AUTH_USER_MODEL='accounts.CustomUser'
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
@@ -140,9 +140,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # settings.py
-LOGIN_URL = '/accounts/login/'  # URL for the login page
-LOGIN_REDIRECT_URL = '/'  # URL to redirect to after successful login
-# settings.py
+LOGIN_URL = '/accounts/'  # URL for the login page
+LOGIN_REDIRECT_URL = '/accounts/dashboard/'  # URL to redirect to after successful login
+# # settings.py
 
 # In settings.py for Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -151,4 +151,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'iyumbusda@gmail.com'  # Replace with your email address
 EMAIL_HOST_PASSWORD = 'wdhdezvjzbegvdjs'  # Replace with your email password
+
+
+# Twilio Credentials (Ensure these are kept secure, e.g., in environment variables)
+# TWILIO_PHONE_NUMBER = '+12766008030'
+# TWILIO_SID = 'AC380fd733caa676f79347b1ed86b0be0f'
+# TWILIO_AUTH_TOKEN = 'cbef6c8a3cce29de9593b1526ba2a377'
+# settings.py
+
+SITE_URL = "http://192.168.137.1:8000"
+
+
 
